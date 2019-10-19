@@ -2,6 +2,7 @@ nav {
   background: rgb(86, 175, 226);
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
   padding: 0 30px;
   height: 4em;
   border-radius: 8px;
