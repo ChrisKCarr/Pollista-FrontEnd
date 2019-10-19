@@ -1,12 +1,18 @@
 import React from "react";
 import "./App.css";
-// import { Link, Switch, Route } from "react-router-dom";
+import { Link, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <nav></nav>
-      <main></main>
+      <nav>
+        <div className="navContainer">
+          <Link className="navLink" to="/">
+            Home
+          </Link>
+        </div>
+      </nav>
+      <main>App Body</main>
     </div>
   );
 }
