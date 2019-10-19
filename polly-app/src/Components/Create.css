@@ -1,0 +1,7 @@
+.pollForm {
+    display:flex;
+    justify-content: space-around;
+}
+.create{
+    font-size: 100px;
+}
