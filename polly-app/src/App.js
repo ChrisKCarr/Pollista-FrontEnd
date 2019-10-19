@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { Link, Switch, Route } from "react-router-dom";
 import Nav from "./Components/Nav";
+import Home from "./Components/Home";
 
 function App() {
   return (
@@ -13,8 +14,7 @@ function App() {
         </Switch>
       </header>
       <main>
-        Main App Body Components
-        {/* //Route to Home - creates a list of Polls */}
+        <Route path="/" component={Home} />
       </main>
     </div>
   );
