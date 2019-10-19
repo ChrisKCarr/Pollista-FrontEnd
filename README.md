@@ -1,4 +1,4 @@
-# Polly App  <img align="left" width="100" height="100" src="https://d30y9cdsu7xlg0.cloudfront.net/png/29034-200.png">
+# Polly App  <img align="left" width="100" height="100" src="http://www.iconarchive.com/download/i107376/google/noto-emoji-animals-nature/22271-bird.ico">
 
 ### About our App
 ## Planning Process
