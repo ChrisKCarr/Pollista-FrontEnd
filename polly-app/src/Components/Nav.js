@@ -5,6 +5,7 @@ import { Link, Route } from "react-router-dom";
 function Nav() {
   return (
     <div>
+      
       <nav>
         <div className="navContainer">
           <Link className="navLink" to="/">
