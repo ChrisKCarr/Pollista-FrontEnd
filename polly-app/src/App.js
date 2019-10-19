@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import { Link, Switch, Route } from "react-router-dom";
 import Nav from "./Components/Nav";
-import Create from "./Components/Create"
+import Home from "./Components/Home";
+import Create from "./Components/Create";
 
 function App() {
   return (
@@ -11,12 +12,11 @@ function App() {
         <Switch>
           <Route exact path="/" component={Nav} />
           {/* // Route to createPoll */}
-          <Route path ="/create" component={Create}/>
+          <Route path="/create" component={Create} />
         </Switch>
       </header>
       <main>
-        Main App Body Components
-        {/* //Route to Home - creates a list of Polls */}
+        <Route path="/" component={Home} />
       </main>
     </div>
   );
