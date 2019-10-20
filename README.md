@@ -9,13 +9,27 @@ The Polly App is for the indecisive user. When using the app you can see polls t
 
 ### Wireframe -
 <img align="left" width="400" height="300" src="https://user-images.githubusercontent.com/54283215/67162853-2e6ce380-f31d-11e9-858a-3d03ed7c079c.png">
-<img align="left" width="400" height="300" src="https://user-images.githubusercontent.com/54283215/67162854-33319780-f31d-11e9-9071-d236f8781575.png">
+<img align="left" width="400" height="300" src="https://user-images.githubusercontent.com/54283215/67162854-33319780-f31d-11e9-9071-d236f8781575.png"><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
-
-### Bronze, Silver, Gold
+### Bronze, Silver, Gold -
 
 
 
 ## Technologies Used -
 ### Back-End -
 ### Front-End -
+
+
