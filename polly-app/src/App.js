@@ -11,7 +11,6 @@ function App() {
       <header>
         <Switch>
           <Route exact path="/" component={Nav} />
-          {/* // Route to createPoll */}
           <Route path="/create" component={Create} />
         </Switch>
       </header>
