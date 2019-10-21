@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Create.css";
 import { Route } from "react-router-dom";
 import Nav from "./Nav";
+import ChoiceList from "./ChoiceList";
 
 class Create extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class Create extends Component {
     console.log("poll submitted " + this.state.value);
     event.preventDefault();
   }
+
   render() {
     return (
       <div>
@@ -54,37 +56,8 @@ class Create extends Component {
             </select>
           </label>
           <br></br>
-          <label>
-            <h3>Choices: </h3>
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-            <br />
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-            <br />
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-            <br />
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-          </label>
-          <br></br>
+          <h3>Choices: </h3>
+          <ChoiceList choices={this.state.choices} />
           <input type="submit" value="Submit" className="Button" />
         </form>
       </div>
