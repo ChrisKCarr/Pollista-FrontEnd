@@ -28,8 +28,10 @@ The Polly App is for the indecisive user. When using the app you can see polls t
 
 
 
-## Technologies Used -
+## Technologies Used 
 ### Back-End -
+Express, MongoDB, Mongoose, Handlebars
 ### Front-End -
+React, Bootstrap
 
 
