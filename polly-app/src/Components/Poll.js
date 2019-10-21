@@ -30,7 +30,7 @@ class Poll extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      testing: [
+      polls: [
         {
           pollTitle: "What is your fav color",
           body: "pick your fav color",
@@ -60,9 +60,10 @@ class Poll extends Component {
 
   incrementCount(evt) {
     evt.preventDefault();
-    // console.log("Clicked", this.state.testing[0].options[0]);
+    let poll = this.state.polls.map(poll);
+    console.log("Clicked", poll);
     // this.setState({
-    //   testing: {
+    //   polls: {
     //     pollTitle: this.state.pollTitle,
     //     body: this.state.body,
     //     options: this.state.options.count + 1,
@@ -72,8 +73,7 @@ class Poll extends Component {
   }
 
   render() {
-    // console.log(this.state.testing[0].options[0].count);
-    let Poll = this.state.testing.map((PollObj, index) => {
+    let Poll = this.state.polls.map((PollObj, index) => {
       let choices = PollObj.options.map((option, index) => {
         return (
           <p
