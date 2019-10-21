@@ -60,19 +60,19 @@ class Poll extends Component {
 
   incrementCount(evt) {
     evt.preventDefault();
-    console.log("Clicked");
-    this.setState({
-      testing: {
-        pollTitle: this.state.pollTitle,
-        body: this.state.body,
-        options: this.state.options.count + 1,
-        choices: this.state.choices
-      }
-    });
+    // console.log("Clicked", this.state.testing[0].options[0]);
+    // this.setState({
+    //   testing: {
+    //     pollTitle: this.state.pollTitle,
+    //     body: this.state.body,
+    //     options: this.state.options.count + 1,
+    //     choices: this.state.choices
+    //   }
+    // });
   }
 
   render() {
-    console.log(this.state.testing[0].options[0].count);
+    // console.log(this.state.testing[0].options[0].count);
     let Poll = this.state.testing.map((PollObj, index) => {
       let choices = PollObj.options.map((option, index) => {
         return (
