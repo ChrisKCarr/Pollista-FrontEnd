@@ -5,7 +5,6 @@ import Nav from "./Components/Nav";
 import Home from "./Components/Home";
 import Create from "./Components/Create";
 import { PollStore } from "./contexts/PollContext";
-
 function App() {
   return (
     <div>
