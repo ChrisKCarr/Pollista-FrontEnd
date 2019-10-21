@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
+import "./Poll.css";
 
 const testList = [
   {
@@ -26,23 +27,53 @@ const testList = [
   }
 ];
 class Poll extends Component {
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //       testing: testList.options
-  //     };
-  //     this.incrementCount = this.incrementCount.bind(this);
-  //   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      testing: [
+        {
+          pollTitle: "What is your fav color",
+          body: "pick your fav color",
+          options: [
+            { name: "Blue", count: 3 },
+            { name: "Pink", count: 4 },
+            { name: "Green", count: 1 },
+            { name: "Red", count: 2 }
+          ],
+          choices: ["Blue", "Pink", "Green", "Red"]
+        },
+        {
+          pollTitle: "What time do you wake up?",
+          body: "choose the time closest to when you wake up.",
+          options: [
+            { name: "6am", count: 3 },
+            { name: "8am", count: 4 },
+            { name: "10am", count: 1 },
+            { name: "noon", count: 2 }
+          ],
+          choices: ["6am", "8am", "10am", "noon"]
+        }
+      ]
+    };
+    this.incrementCount = this.incrementCount.bind(this);
+  }
 
-  //   incrementCount(evt) {
-  //     this.setState({
-  //       testing: this.state.testing + 1
-  //     });
-  //   }
+  incrementCount(evt) {
+    evt.preventDefault();
+    // console.log("Clicked", this.state.testing[0].options[0]);
+    // this.setState({
+    //   testing: {
+    //     pollTitle: this.state.pollTitle,
+    //     body: this.state.body,
+    //     options: this.state.options.count + 1,
+    //     choices: this.state.choices
+    //   }
+    // });
+  }
 
   render() {
-    console.log();
-    let Poll = testList.map((PollObj, index) => {
+    // console.log(this.state.testing[0].options[0].count);
+    let Poll = this.state.testing.map((PollObj, index) => {
       let choices = PollObj.options.map((option, index) => {
         return (
           <p
@@ -53,7 +84,11 @@ class Poll extends Component {
       });
       let buttonChoices = PollObj.choices.map((choice, index) => {
         return (
-          <button className="choicesButton" key={index}>
+          <button
+            className="choicesButton"
+            key={index}
+            onClick={this.incrementCount}
+          >
             {choice}
           </button>
         );

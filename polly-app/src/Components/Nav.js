@@ -5,19 +5,18 @@ import { Link, Route } from "react-router-dom";
 function Nav() {
   return (
     <div>
-      
       <nav>
         <div className="navContainer">
-          <Link className="navLink" to="/">
+          <Link className="navLink" id="Home" to="/">
             Home
           </Link>
-       
-          <Link className="navLink" to="login">
-            Login
-          </Link>
-       
-          <Link className="navLink" to="/create">
+
+          <Link className="navLink" id="NewPoll" to="/create">
             Create New Poll
+          </Link>
+
+          <Link className="navLink" id="Login" to="login">
+            Login
           </Link>
         </div>
       </nav>

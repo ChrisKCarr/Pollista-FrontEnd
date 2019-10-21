@@ -1,7 +1,28 @@
 .pollForm {
-    display:flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
-.create{
-    font-size: 100px;
+.Title {
+  font-size: 3em;
+  text-align: center;
+}
+form {
+  text-align: center;
+}
+.Button {
+  padding: 0.5em;
+  background-color: #ccffcc;
+  font-family: "Open Sans", sans-serif, Arial;
+  font-size: 16px;
+  color: black;
+  cursor: pointer;
+  border: 1px solid lightblue;
+  -webkit-appearance: none;
+  border-radius: 10px;
+}
+.Button:hover {
+  box-shadow: inset 0 0 0 25px #e4795e;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
