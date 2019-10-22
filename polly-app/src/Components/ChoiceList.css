@@ -1,0 +1,10 @@
+.choiceButtonsContainer {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.choiceButton:hover {
+  background: darkgrey;
+}
+.ChoiceContainer {
+  margin-bottom: 3px;
+}

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Create.css";
 import { Route } from "react-router-dom";
 import Nav from "./Nav";
+import ChoiceList from "./ChoiceList"
 
 class Create extends Component {
   constructor(props) {
@@ -12,12 +13,14 @@ class Create extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    let id = event.target.id;
+    this.setState({ [id]: event.target.value });
   }
   handleSubmit(event) {
-    console.log("poll submitted " + this.state.value);
+    console.log("poll submitted " + this.state);
     event.preventDefault();
   }
+
   render() {
     return (
       <div>
@@ -28,8 +31,9 @@ class Create extends Component {
           <label>
             <h3>Poll Name: </h3>
             <input
+              id="pollName"
               type="text"
-              value={this.state.value}
+              value={this.state.pollName}
               onChange={this.handleChange}
               name="pollName"
             />
@@ -38,6 +42,7 @@ class Create extends Component {
           <label>
             <h3>Question: </h3>
             <input
+              id="question"
               type="text"
               value={this.state.question}
               onChange={this.handleChange}
@@ -54,37 +59,8 @@ class Create extends Component {
             </select>
           </label>
           <br></br>
-          <label>
-            <h3>Choices: </h3>
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-            <br />
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-            <br />
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-            <br />
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-          </label>
-          <br></br>
+          <h3>Choices: </h3>
+          <ChoiceList choices={this.state.choices} />
           <input type="submit" value="Submit" className="Button" />
         </form>
       </div>
