@@ -5,16 +5,19 @@ import "./ChoiceList.css";
 class Choice extends Component {
   constructor(props) {
     super(props);
-    this.state = { choices: "" };
+    this.state = { choices: "", propsChoices: this.props.propsChoices };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ choices: event.target.value });
+    let choice = event.target.value;
+    let propsChoices = this.props.choices;
+    this.setState({ propsChoices: this.state.propsChoices.push(choice) });
   }
 
   render() {
+    // console.log(this.props.choices);
     console.log(this.state);
     console.log(this.state.choices, this.props.inputKey);
     return (
