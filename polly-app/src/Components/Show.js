@@ -14,10 +14,10 @@ class Show extends Component {
       return results;
     }
   };
-  renderChoiceList = (poll) => {
-      return poll.choices.map((obj) => {
-        return <button>{obj.text}</button>
-      })
+  renderChoiceList = poll => {
+    return poll.choices.map(obj => {
+      return <button>{obj.text}</button>;
+    });
   };
   render() {
     let poll = this.findPoll();
