@@ -1,15 +1,66 @@
+
 import React, { Component } from "react"
 
 import Counter from "./Counter"
 
+
 class ChoiceList extends Component {
- 
-  render() { 
-    let choiceList = []
-    for (let i = 0; i < this.props.choice; i++) {
-      choiceList.push(<Choice />)
+  constructor() {
+    super();
+    this.state = {
+      choiceList: [<Choice />, <Choice />],
+      showChoice: false
+    };
+    this.plusButton = this.plusButton.bind(this);
+    this.minusButton = this.minusButton.bind(this);
+    this.checkChoiceLength = this.checkChoiceLength.bind(this);
+  }
+
+  checkChoiceLength() {
+    if (this.state.choiceList.length <= 2) {
+      return true;
     }
-    return <div className="Counter-row">{choiceList}</div>
+  }
+
+  plusButton() {
+    const choiceList = [...this.state.choiceList, <Choice />];
+    this.setState({
+      choiceList
+    });
+
+    console.log(this.state.choiceList);
+  }
+
+  minusButton() {
+    // this.checkChoiceLength();
+    if (this.checkChoiceLength() === true) {
+      alert("You can not have less than 2 choices.");
+    } else {
+      const choiceList = [...this.state.choiceList];
+      choiceList.pop();
+      this.setState({
+        choiceList
+      });
+    }
+
+    console.log(this.state.choiceList);
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="Counter-row">{this.state.choiceList}</div>
+        <div>
+          <button type="button" onClick={this.plusButton}>
+            +
+          </button>
+        </div>
+
+        <button type="button" onClick={this.minusButton}>
+          -
+        </button>
+      </div>
+    );
   }
 }
 
