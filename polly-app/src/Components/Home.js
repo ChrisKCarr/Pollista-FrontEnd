@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
 import Poll from "./Poll";
 import "./Home.css";
+
 import PollContext from "../contexts/PollContext";
 
 class Home extends Component {
