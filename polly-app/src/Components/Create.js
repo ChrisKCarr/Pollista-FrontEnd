@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Create.css";
 import { Route } from "react-router-dom";
 import Nav from "./Nav";
-import ChoiceList from "./ChoiceList";
+import ChoiceList from "./ChoiceList"
 
 class Create extends Component {
   constructor(props) {

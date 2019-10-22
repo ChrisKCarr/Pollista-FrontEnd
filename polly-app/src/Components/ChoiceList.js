@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 import React, { Component } from "react";
 import Choice from "./Choice";
 import "./ChoiceList.css";
+=======
+
+import React, { Component } from "react"
+
+import Counter from "./Counter"
+
+>>>>>>> ae44d9363107b433018199b4714bff4974723f29
 
 class ChoiceList extends Component {
   constructor() {
