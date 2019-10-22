@@ -5,7 +5,7 @@ import "./ChoiceList.css";
 class Choice extends Component {
   constructor(props) {
     super(props);
-    this.state = { choices: "", propsChoices: this.props.propsChoices };
+    this.state = { choices: "" };
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -13,7 +13,10 @@ class Choice extends Component {
   handleChange(event) {
     let choice = event.target.value;
     let propsChoices = this.props.choices;
-    this.setState({ propsChoices: this.state.propsChoices.push(choice) });
+    console.log(choice);
+    propsChoices.push(choice);
+    console.log(propsChoices);
+    // this.setState({  });
   }
 
   render() {
@@ -28,6 +31,7 @@ class Choice extends Component {
           onChange={this.handleChange}
           name="choice"
           value={this.state.choices}
+          placeholder={this.state.choices}
         />
       </div>
     );
