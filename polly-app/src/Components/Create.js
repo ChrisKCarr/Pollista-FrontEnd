@@ -40,6 +40,7 @@ class Create extends Component {
   }
   render() {
     console.log(this.state);
+
     return (
       <div>
         <Route component={Nav} />

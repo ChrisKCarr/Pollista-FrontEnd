@@ -39,6 +39,7 @@ class ChoiceList extends Component {
 
   plusButton() {
     this.addKey();
+    console.log(this.state.inputKey);
     const choiceList = [
       ...this.state.choiceList,
       <Choice choices={this.props.choices} key={this.state.inputKey} />
@@ -46,7 +47,6 @@ class ChoiceList extends Component {
     this.setState({
       choiceList
     });
-    console.log(this.state.inputKey);
   }
 
   minusButton() {
@@ -55,12 +55,14 @@ class ChoiceList extends Component {
       alert("You can not have less than 2 choices.");
     } else {
       this.minusKey();
+
       const choiceList = [...this.state.choiceList];
       choiceList.pop();
       this.setState({
         choiceList
       });
     }
+    console.log(this.state.inputKey);
   }
 
   render() {
