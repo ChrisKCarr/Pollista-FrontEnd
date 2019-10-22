@@ -10,6 +10,13 @@ class ChoiceList extends Component {
     };
     this.plusButton = this.plusButton.bind(this);
     this.minusButton = this.minusButton.bind(this);
+    this.checkChoiceLength = this.checkChoiceLength.bind(this);
+  }
+
+  checkChoiceLength() {
+    if (this.state.choiceList.length <= 2) {
+      return true;
+    }
   }
 
   plusButton() {
@@ -22,14 +29,20 @@ class ChoiceList extends Component {
   }
 
   minusButton() {
-    const choiceList = [...this.state.choiceList];
-    choiceList.pop();
-    this.setState({
-      choiceList
-    });
+    // this.checkChoiceLength();
+    if (this.checkChoiceLength() === true) {
+      alert("You can not have less than 2 choices.");
+    } else {
+      const choiceList = [...this.state.choiceList];
+      choiceList.pop();
+      this.setState({
+        choiceList
+      });
+    }
 
     console.log(this.state.choiceList);
   }
+
   render() {
     return (
       <div>
