@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Create.css";
 import { Route } from "react-router-dom";
 import Nav from "./Nav";
+import ChoiceList from "./ChoiceList"
 
 class Create extends Component {
   constructor(props) {
@@ -54,36 +55,9 @@ class Create extends Component {
             </select>
           </label>
           <br></br>
-          <label>
+          
             <h3>Choices: </h3>
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-            <br />
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-            <br />
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-            <br />
-            <input
-              type="text"
-              //   value={this.state.value}
-              onChange={this.handleChange}
-              name="choices"
-            />
-          </label>
+           <ChoiceList/>
           <br></br>
           <input type="submit" value="Submit" className="Button" />
         </form>
