@@ -4,32 +4,45 @@ import Choice from "./Choice";
 class ChoiceList extends Component {
   constructor() {
     super();
-
-    // this.state = this.incrementCount = this.increaseCount.bind(this);
-    // this.decreaseCount = this.decreaseCount.bind(this);
+    this.state = {
+      choiceList: [<Choice />, <Choice />],
+      showChoice: false
+    };
+    this.plusButton = this.plusButton.bind(this);
+    this.minusButton = this.minusButton.bind(this);
   }
 
-  //   increaseCount() {}
-  //   decreaseCount() {
-  //     let count = this.state.count - 1;
-  //     this.setState({
-  //       count
-  //     });
-  //     console.log(this.state.count);
-  //   }
+  plusButton() {
+    const choiceList = [...this.state.choiceList, <Choice />];
+    this.setState({
+      choiceList
+    });
+
+    console.log(this.state.choiceList);
+  }
+
+  minusButton() {
+    const choiceList = [...this.state.choiceList];
+    choiceList.pop();
+    this.setState({
+      choiceList
+    });
+
+    console.log(this.state.choiceList);
+  }
   render() {
-    let choiceList = [<Choice />, <Choice />];
-    for (let i = 0; i < this.props.choice; i++) {
-      choiceList.push(<Choice />);
-    }
-    let increaseCount = increaseCount => {
-      return choiceList.push(<Choice />);
-    };
     return (
       <div>
-        <div className="Counter-row">{choiceList}</div>
-        <button onClick={increaseCount}>+</button>
-        <button>-</button>
+        <div className="Counter-row">{this.state.choiceList}</div>
+        <div>
+          <button type="button" onClick={this.plusButton}>
+            +
+          </button>
+        </div>
+
+        <button type="button" onClick={this.minusButton}>
+          -
+        </button>
       </div>
     );
   }
