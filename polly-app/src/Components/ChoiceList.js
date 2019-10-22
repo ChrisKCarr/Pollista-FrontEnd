@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Choice from "./Choice";
+import "./ChoiceList.css";
 
 class ChoiceList extends Component {
   constructor() {
@@ -47,15 +48,22 @@ class ChoiceList extends Component {
     return (
       <div>
         <div className="Counter-row">{this.state.choiceList}</div>
-        <div>
-          <button type="button" onClick={this.plusButton}>
+        <div className="choiceButtonsContainer">
+          <button
+            className="choiceButton"
+            type="button"
+            onClick={this.plusButton}
+          >
             +
           </button>
+          <button
+            className="choiceButton"
+            type="button"
+            onClick={this.minusButton}
+          >
+            -
+          </button>
         </div>
-
-        <button type="button" onClick={this.minusButton}>
-          -
-        </button>
       </div>
     );
   }
