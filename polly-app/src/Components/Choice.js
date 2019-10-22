@@ -5,17 +5,18 @@ import "./ChoiceList.css";
 class Choice extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      choice: ""
-    };
+    this.state = { choices: "" };
+
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    this.setState({ choices: event.target.value });
   }
 
   render() {
+    console.log(this.state);
+    console.log(this.state.choices, this.props.inputKey);
     return (
       <div className="ChoiceContainer">
         <input
@@ -23,6 +24,7 @@ class Choice extends Component {
           //   value={this.state.value}
           onChange={this.handleChange}
           name="choice"
+          value={this.state.choices}
         />
       </div>
     );
