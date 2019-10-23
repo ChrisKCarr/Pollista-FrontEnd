@@ -9,36 +9,35 @@ const getPolls = async () => {
 let Context = React.createContext([]);
 //Mange context logic
 export class PollStore extends React.Component {
- state = { polls: [] };
- componentDidMount = async () => {
-   await this.refresh();
- };
- newPoll = async poll => {
-   let res = await pollyApi.post("/newpoll", poll);
-   this.setState({ polls: [...this.state.polls, res.data] });
- };
- updatePoll = async poll => {
-  let res =  await pollyApi.put(`/update/${poll._id}`, poll);
-  console.log(res)
-   await this.refresh();
- };
- refresh = async () => {
-   let polls = await getPolls();
-   this.setState({ polls: polls.data });
- };
- render() {
-   return (
-     <Context.Provider
-       value={{
-         ...this.state,
-         newPoll: this.newPoll,
-         updatePoll: this.updatePoll,
-       }}
-     >
-       {this.props.children}
-     </Context.Provider>
-   );
- }
+  state = { polls: [] };
+  componentDidMount = async () => {
+    await this.refresh();
+  };
+  newPoll = async poll => {
+    let res = await pollyApi.post("/newpoll", poll);
+    this.setState({ polls: [...this.state.polls, res.data] });
+  };
+  updatePoll = async poll => {
+    await pollyApi.put(`/update/${poll._id}`, poll);
+    await this.refresh();
+  };
+  refresh = async () => {
+    let polls = await getPolls();
+    this.setState({ polls: polls.data });
+  };
+  render() {
+    return (
+      <Context.Provider
+        value={{
+          ...this.state,
+          newPoll: this.newPoll,
+          updatePoll: this.updatePoll,
+        }}
+      >
+        {this.props.children}
+      </Context.Provider>
+    );
+  }
 }
 export default Context;
 /*import PollContext from "../contexts/PollContext";
