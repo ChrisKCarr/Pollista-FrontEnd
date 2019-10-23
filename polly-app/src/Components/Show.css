@@ -1,0 +1,36 @@
+.ShowCOntainer {
+  text-align: center;
+  font-family: "Palanquin Dark", sans-serif;
+}
+.Title {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.User {
+  margin-top: 300px;
+}
+.choiceButtons {
+  margin-top: 50px;
+}
+.choices {
+  margin: 0 15px 0 15px;
+  padding: 0.5em 0.5em;
+  background-color: #ccffcc;
+  font-family: "Open Sans", sans-serif, Arial;
+  font-size: 18px;
+  cursor: pointer;
+  outline: none;
+  color: black;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+.choices:hover {
+  background-color: #3e8e41;
+}
+
+.choices:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}

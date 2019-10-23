@@ -16,7 +16,7 @@ class Show extends Component {
   };
   renderChoiceList = poll => {
     return poll.choices.map(obj => {
-      return <button>{obj.text}</button>;
+      return <button className="choices">{obj.text}</button>;
     });
   };
   render() {
@@ -27,10 +27,13 @@ class Show extends Component {
       return (
         <div>
           <Route component={Nav} />
-          <h2>{poll.question}</h2>
-          <p>{poll.description}</p>
-          <p>Created By: {poll.user}</p>
-          <div>{this.renderChoiceList(poll)}</div>
+          <div className="ShowCOntainer">
+            <h2 className="Title">{poll.question}</h2>
+            <p>{poll.description}</p>
+            <div className="choiceButtons">{this.renderChoiceList(poll)}</div>
+            <p className="User">Created By: {poll.user}</p>
+            <hr />
+          </div>
         </div>
       );
     }
