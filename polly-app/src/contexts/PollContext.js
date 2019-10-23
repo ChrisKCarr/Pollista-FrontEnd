@@ -1,15 +1,12 @@
 import React from "react";
 import pollyApi from "../apis/polly-api";
-
 //Gets list of polls
 const getPolls = async () => {
-  let polls = await pollyApi.get();
-  return polls;
+ let polls = await pollyApi.get();
+ return polls;
 };
 //Create context object
-
 let Context = React.createContext([]);
-
 //Mange context logic
 export class PollStore extends React.Component {
   state = { polls: [] };
