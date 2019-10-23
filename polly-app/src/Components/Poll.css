@@ -1,17 +1,24 @@
 .PollContainer {
   text-align: center;
-  border: 4px solid gray;
-  border-radius: 10px;
+  border: 1px solid gray;
+  padding: 5px 0 20px 0;
   margin: 5px 400px 30px 400px;
+  box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.2);
+}
+.PollContainer:active {
+  color: red;
+  box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.6);
 }
 .PollTitle {
   font-family: "Palanquin Dark", sans-serif;
   font-weight: bolder;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 .PollTitle a {
   color: rgb(86, 175, 226);
 }
+
+/* ---------------------------------------------- */
 .Description {
   font-family: "Palanquin Dark", sans-serif;
   font-weight: 300;

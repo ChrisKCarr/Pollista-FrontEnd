@@ -7,18 +7,20 @@ class Poll extends Component {
   static contextType = PollContext;
 
   render() {
-    let poll=this.props.pollObject
+    let poll = this.props.pollObject;
     console.log(poll);
     return (
-      <div>
+      <div className="PollContainer">
         <Link
+          className="PollTitle"
           to={{
             pathname: `/show/${this.props.pollObject._id}`,
-            query: {pollObject:{poll}}
+            query: { pollObject: { poll } }
           }}
         >
           {this.props.pollObject.question}
         </Link>
+        <h5 className="Description">{poll.description}</h5>
       </div>
     );
   }

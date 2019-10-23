@@ -21,7 +21,6 @@ class Show extends Component {
        console.log(poll)
     await this.context.updatePoll(poll)
   
- 
   };
 
   render() {
@@ -46,6 +45,7 @@ class Show extends Component {
           <p>{this.poll.description}</p>
           <p>Created By: {this.poll.user}</p>
           <div>{this.options}</div>
+
         </div>
       );
     }
