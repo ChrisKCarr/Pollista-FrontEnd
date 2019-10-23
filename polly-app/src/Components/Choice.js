@@ -6,7 +6,8 @@ class Choice extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        choice: ''
+      counter:0,
+      choice: ''
     }
     this.handleChange = this.handleChange.bind(this) 
   }
