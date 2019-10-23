@@ -3,15 +3,32 @@ import Choice from "./Choice";
 import "./ChoiceList.css";
 
 class ChoiceList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      choiceList: [<Choice />, <Choice />],
-      showChoice: false
+      choiceList: [
+        <Choice choices={this.props.choices} inputKey={1} />,
+        <Choice choices={this.props.choices} inputKey={2} />
+      ],
+      inputKey: 3
     };
     this.plusButton = this.plusButton.bind(this);
     this.minusButton = this.minusButton.bind(this);
     this.checkChoiceLength = this.checkChoiceLength.bind(this);
+    this.addKey = this.addKey.bind(this);
+    this.minusKey = this.minusKey.bind(this);
+  }
+
+  addKey() {
+    this.setState({
+      inputKey: this.state.inputKey + 1
+    });
+  }
+
+  minusKey() {
+    this.setState({
+      inputKey: this.state.inputKey - 1
+    });
   }
 
   checkChoiceLength() {
@@ -21,12 +38,15 @@ class ChoiceList extends Component {
   }
 
   plusButton() {
-    const choiceList = [...this.state.choiceList, <Choice />];
+    this.addKey();
+    console.log(this.state.inputKey);
+    const choiceList = [
+      ...this.state.choiceList,
+      <Choice choices={this.props.choices} key={this.state.inputKey} />
+    ];
     this.setState({
       choiceList
     });
-
-    console.log(this.state.choiceList);
   }
 
   minusButton() {
@@ -34,14 +54,15 @@ class ChoiceList extends Component {
     if (this.checkChoiceLength() === true) {
       alert("You can not have less than 2 choices.");
     } else {
+      this.minusKey();
+
       const choiceList = [...this.state.choiceList];
       choiceList.pop();
       this.setState({
         choiceList
       });
     }
-
-    console.log(this.state.choiceList);
+    console.log(this.state.inputKey);
   }
 
   render() {
