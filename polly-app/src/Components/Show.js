@@ -3,6 +3,7 @@ import { Link, Route } from "react-router-dom";
 import "./Show.css";
 import Nav from "./Nav";
 import PollContext from "../contexts/PollContext";
+// import Graph from "./Graph";
 
 class Show extends Component {
   static contextType = PollContext;
@@ -30,6 +31,7 @@ class Show extends Component {
           <div className="ShowCOntainer">
             <h2 className="Title">{poll.question}</h2>
             <p>{poll.description}</p>
+            {/* <Route component={Graph} /> */}
             <div className="choiceButtons">{this.renderChoiceList(poll)}</div>
             <p className="User">Created By: {poll.user}</p>
             <hr />
