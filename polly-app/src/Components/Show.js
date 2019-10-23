@@ -16,36 +16,39 @@ class Show extends Component {
   };
 
   handleChange = async (event, poll, obj) => {
-      
-       obj.votes += 1
-       console.log(poll)
-    await this.context.updatePoll(poll)
-  
+    obj.votes += 1;
+    console.log(poll);
+    await this.context.updatePoll(poll);
   };
 
   render() {
     this.poll = this.findPoll();
-  
-    if (this.poll) {
-        console.log(this.poll)
-        this.options = this.poll.choices.map((obj, index) => {
 
-            return (
-              <button onClick={e => this.handleChange(e, this.poll, obj)} key={index}>
-                {obj.text} Votes: {obj.votes}
-              </button>
-            );
-          });
-         
-          
+    if (this.poll) {
+      console.log(this.poll);
+      this.options = this.poll.choices.map((obj, index) => {
+        return (
+          <button
+            className="choices"
+            onClick={e => this.handleChange(e, this.poll, obj)}
+            key={index}
+          >
+            {obj.text} Votes: {obj.votes}
+          </button>
+        );
+      });
+
       return (
         <div>
           <Route component={Nav} />
-          <h2>{this.poll.question}</h2>
-          <p>{this.poll.description}</p>
-          <p>Created By: {this.poll.user}</p>
-          <div>{this.options}</div>
+          <div className="ShowCOntainer">
+            <h2 className="Title">{this.poll.question}</h2>
+            <p>{this.poll.description}</p>
 
+            <div className="choiceButtons">{this.options}</div>
+            <p className="User">Created By: {this.poll.user}</p>
+            <hr />
+          </div>
         </div>
       );
     }
