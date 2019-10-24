@@ -51,7 +51,6 @@ class Create extends Component {
           <label>
             <h3>Question: </h3>
             <input
-
               id="question"
               type="text"
               value={this.state.question}
@@ -63,7 +62,6 @@ class Create extends Component {
           <label>
             <h3>Description: (optional)</h3>
             <input
-
               id="description"
               type="text"
               value={this.state.description}

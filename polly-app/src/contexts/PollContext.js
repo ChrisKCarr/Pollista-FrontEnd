@@ -21,6 +21,18 @@ export class PollStore extends React.Component {
       console.log(err);
     }
   };
+  logOut = async () => {
+    console.log(window.sessionStorage.jwt);
+    pollyApi.get("/auth/logout", {
+      headers: {
+        token: window.sessionStorage.jwt,
+      },
+    });
+    sessionStorage.clear();
+    this.setState({ user: null });
+    console.log(sessionStorage);
+    console.log(this.state);
+  };
   updatePoll = async (poll, token = window.sessionStorage.jwt) => {
     try {
       let res = await pollyApi.put(`/update/${poll._id}`, poll, {
@@ -37,8 +49,8 @@ export class PollStore extends React.Component {
     try {
       let polls = await getPolls();
       let token = window.sessionStorage.jwt;
-      let user = null;
-      if (token) user = await pollyApi.get(`/auth/${token}`);
+      let user = token ? await pollyApi.get(`/auth/${token}`) : null;
+      console.log(user);
       if (user) user = user.data;
       this.setState({ polls: polls.data, user: user });
     } catch (err) {
@@ -53,6 +65,7 @@ export class PollStore extends React.Component {
           newPoll: this.newPoll,
           updatePoll: this.updatePoll,
           refresh: this.refresh,
+          logOut: this.logOut,
         }}
       >
         {this.props.children}
