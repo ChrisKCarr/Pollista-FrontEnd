@@ -20,7 +20,7 @@ class Graph extends Component {
           indexLabelFontSize: 16,
           indexLabel: "{label} - {y}%",
           dataPoints: [
-            { y: 18, label: "Direct" },
+            { y: 18, label: "hello" },
             { y: 49, label: "Organic Search" },
             { y: 9, label: "Paid Search" },
             { y: 5, label: "Referral" },

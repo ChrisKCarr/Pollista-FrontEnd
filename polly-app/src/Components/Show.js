@@ -6,6 +6,7 @@ import PollContext from "../contexts/PollContext";
 import Graph from "./Graph";
 
 class Show extends Component {
+  //setting the context type to the object of poll context
   static contextType = PollContext;
   findPoll = () => {
     if (this.context.polls) {
