@@ -21,21 +21,42 @@ class Show extends Component {
       return <button className="choices">{obj.text}</button>;
     });
   };
+  handleChange = async (event, poll, obj) => {
+    if (window.sessionStorage.jwt) {
+      obj.votes += 1;
+      await this.context.updatePoll(poll, "9g6hiE3ex2T");
+    }
+  };
 
   render() {
-    let poll = this.findPoll();
+    this.poll = this.findPoll();
 
-    // let poll = this.props.polls.find((poll) => poll.pollTitle === this.props.match.params.pollTitle)
-    if (poll) {
+    if (this.poll) {
+      this.options = this.poll.choices.map((obj, index) => {
+        return (
+          <button
+            className="choices"
+            onClick={e => this.handleChange(e, this.poll, obj)}
+            key={index}
+          >
+            {obj.text} Votes: {obj.votes}
+          </button>
+        );
+      });
+      console.log(this.poll);
       return (
         <div>
           <Route component={Nav} />
+
           <div className="ShowContainer">
-            <h2 className="Title">{poll.question}</h2>
-            <p>{poll.description}</p>
+            <h2 className="Title">{this.poll.question}</h2>
+            <p>{this.poll.description}</p>
             <Route component={Graph} />
-            <div className="choiceButtons">{this.renderChoiceList(poll)}</div>
-            <p className="User">Created By: {poll.user}</p>
+            <div className="choiceButtons">
+              {this.renderChoiceList(this.poll)}
+            </div>
+            <p className="User">Created By: {this.poll.user}</p>
+
             <hr />
           </div>
         </div>
@@ -48,54 +69,6 @@ class Show extends Component {
       </div>
     );
   }
-
-  // render() {
-
-  //     return (
-  //       <div>
-  //         <h2>{poll.name} ({poll.body})</h2>
-  //         <ul>
-  //           <li> {poll.options}</li>
-  //           <li>{poll.choices}</li>
-
-  //         </ul>
-  //       </div>
-  //     );
-  //   }
-  // let Poll = this.state.polls.map((PollObj, index) => {
-  //     let choices = PollObj.choices.map((choices, index) => {
-  //       return (
-  //         <p
-  //           className="choices"
-  //           key={index}
-  //         >{`${choices.name}: ${choices.count}`}</p>
-  //       );
-  //     });
-  //     let buttonChoices = PollObj.choices.map((choice, index) => {
-  //       return (
-  //         <button
-  //           className="choicesButton"
-  //           key={index}
-  //           onClick={this.incrementCount}
-  //         >
-  //           {choice}
-  //         </button>
-  //       );
-  //     });
-  //     return (
-  //       <div className="PollContainer" key={index}>
-  //         <div className="PollTitle">
-  //           <Link to={`/show/${index}`}>{PollObj.question}</Link>
-  //         </div>
-  //         <p className="Description">{PollObj.body}</p>
-  //         <div className="PollChoicesContainer">
-  //           <span>{Poll.question}</span>
-  //         </div>
-  //         <div className="buttonChoicesContainer">{buttonChoices}</div>
-  //       </div>
-  //     );
-  //   });
-  //   return <div>{Poll}</div>;
 }
 
 export default Show;
