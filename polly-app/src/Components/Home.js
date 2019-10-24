@@ -11,9 +11,8 @@ class Home extends Component {
   componentDidMount = async () => {
     let query = queryString.parse(this.props.location.search);
     if (query.token) {
-      window.localStorage.setItem("jwt", query.token);
-      console.log(window.localStorage.jwt);
-      await this.context.getUser(query.token);
+      window.sessionStorage.setItem("jwt", query.token);
+      await this.context.refresh();
       this.props.history.push("/");
     }
   };

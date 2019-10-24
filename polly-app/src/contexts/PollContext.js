@@ -9,27 +9,39 @@ const getPolls = async () => {
 let Context = React.createContext([]);
 //Mange context logic
 export class PollStore extends React.Component {
-  state = { polls: [] };
+  state = { polls: [], user: null };
   componentDidMount = async () => {
     await this.refresh();
   };
   newPoll = async poll => {
-    let res = await pollyApi.post("/newpoll", poll);
-    this.setState({ polls: [...this.state.polls, res.data] });
+    try {
+      let res = await pollyApi.post("/newpoll", poll);
+      this.setState({ polls: [...this.state.polls, res.data] });
+    } catch (err) {
+      console.log(err);
+    }
   };
-  updatePoll = async poll => {
-    await pollyApi.put(`/update/${poll._id}`, poll);
-    await this.refresh();
+  updatePoll = async (poll, token = window.sessionStorage.jwt) => {
+    try {
+      let res = await pollyApi.put(`/update/${poll._id}`, poll, {
+        headers: {
+          token: token,
+        },
+      });
+      await this.refresh();
+    } catch (err) {
+      console.log(err);
+    }
   };
   refresh = async () => {
-    let polls = await getPolls();
-    this.setState({ polls: polls.data });
-  };
-  getUser = async token => {
-    let user = await pollyApi.get(`/auth/${token}`);
-    if (user) {
-      this.setState({ user: user.data });
-      this.refresh();
+    try {
+      let polls = await getPolls();
+      let token = window.sessionStorage.jwt;
+      let user = null;
+      if (token) user = await pollyApi.get(`/auth/${token}`);
+      this.setState({ polls: polls.data, user: user.data });
+    } catch (err) {
+      console.log(err);
     }
   };
   render() {
@@ -39,7 +51,7 @@ export class PollStore extends React.Component {
           ...this.state,
           newPoll: this.newPoll,
           updatePoll: this.updatePoll,
-          getUser: this.getUser,
+          refresh: this.refresh,
         }}
       >
         {this.props.children}
@@ -48,16 +60,3 @@ export class PollStore extends React.Component {
   }
 }
 export default Context;
-/*import PollContext from "../contexts/PollContext";
------------------------
-  static contextType = PollContext;
-  ----------------------------------
-      this.context.newPoll({
-      question: "What time do you wake up?",
-      choices: [
-        { text: "6am" },
-        { text: "8am" },
-        { text: "10am" },
-        { text: "noon" },
-      ],
-    });*/

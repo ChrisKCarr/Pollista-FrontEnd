@@ -16,16 +16,16 @@ class Show extends Component {
   };
 
   handleChange = async (event, poll, obj) => {
-    obj.votes += 1;
-    console.log(poll);
-    await this.context.updatePoll(poll);
+    if (window.sessionStorage.jwt) {
+      obj.votes += 1;
+      await this.context.updatePoll(poll, "9g6hiE3ex2T");
+    }
   };
 
   render() {
     this.poll = this.findPoll();
 
     if (this.poll) {
-      console.log(this.poll);
       this.options = this.poll.choices.map((obj, index) => {
         return (
           <button
@@ -46,7 +46,7 @@ class Show extends Component {
             <p>{this.poll.description}</p>
 
             <div className="choiceButtons">{this.options}</div>
-            <p className="User">Created By: {this.poll.user}</p>
+            <p className="User">Created By: {this.poll.user.name}</p>
             <hr />
           </div>
         </div>
