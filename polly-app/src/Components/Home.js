@@ -2,25 +2,29 @@ import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
 import Poll from "./Poll";
 import "./Home.css";
+import queryString from "query-string";
 
 import PollContext from "../contexts/PollContext";
 
 class Home extends Component {
   static contextType = PollContext;
+  componentDidMount = async () => {
+    let query = queryString.parse(this.props.location.search);
+    if (query.token) {
+      window.localStorage.setItem("jwt", query.token);
+      console.log(window.localStorage.jwt);
+      await this.context.getUser(query.token);
+      this.props.history.push("/");
+    }
+  };
   renderPollList = () => {
     // console.log(this.context.polls)
-    return this.context.polls.map((poll) => {
-      
-    return <Poll pollObject={poll}/>
-    })
-    
-  }
+    return this.context.polls.map(poll => {
+      return <Poll pollObject={poll} />;
+    });
+  };
   render() {
-    return (
-      <div>
-        {this.renderPollList()}
-      </div>
-    );
+    return <div>{this.renderPollList()}</div>;
   }
 }
 

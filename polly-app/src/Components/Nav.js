@@ -15,9 +15,13 @@ function Nav() {
             Create New Poll
           </Link>
 
-          <Link className="navLink" id="Login" to="login">
+          <a
+            className="navLink"
+            id="Login"
+            href="https://polly-api.herokuapp.com/auth/google"
+          >
             Login
-          </Link>
+          </a>
         </div>
       </nav>
       <main></main>

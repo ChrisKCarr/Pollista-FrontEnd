@@ -2,8 +2,8 @@ import React from "react";
 import pollyApi from "../apis/polly-api";
 //Gets list of polls
 const getPolls = async () => {
- let polls = await pollyApi.get();
- return polls;
+  let polls = await pollyApi.get();
+  return polls;
 };
 //Create context object
 let Context = React.createContext([]);
@@ -25,6 +25,13 @@ export class PollStore extends React.Component {
     let polls = await getPolls();
     this.setState({ polls: polls.data });
   };
+  getUser = async token => {
+    let user = await pollyApi.get(`/auth/${token}`);
+    if (user) {
+      this.setState({ user: user.data });
+      this.refresh();
+    }
+  };
   render() {
     return (
       <Context.Provider
@@ -32,6 +39,7 @@ export class PollStore extends React.Component {
           ...this.state,
           newPoll: this.newPoll,
           updatePoll: this.updatePoll,
+          getUser: this.getUser,
         }}
       >
         {this.props.children}
