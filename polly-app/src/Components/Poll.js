@@ -8,14 +8,13 @@ class Poll extends Component {
 
   render() {
     let poll = this.props.pollObject;
-    console.log(poll);
     return (
       <div className="PollContainer">
         <Link
           className="PollTitle"
           to={{
             pathname: `/show/${this.props.pollObject._id}`,
-            query: { pollObject: { poll } }
+            query: { pollObject: { poll } },
           }}
         >
           {this.props.pollObject.question}
