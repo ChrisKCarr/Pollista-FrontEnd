@@ -31,6 +31,7 @@ class Show extends Component {
     });
   };
   handleChange = async (event, poll, obj) => {
+    console.log("---------------");
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
       await this.context.updatePoll(poll, "9g6hiE3ex2T");
@@ -45,6 +46,13 @@ class Show extends Component {
         let label = choice.text;
         return `${`y: ${votes}, label: ${label}`}`;
       });
+      console.log("Poll: ", this.poll);
+
+      this.graphChoices = this.poll.choices.map(choice => {
+        let votes = choice.votes;
+        let label = choice.text;
+        return `${`y: ${votes}, label: ${label}`}`;
+      });
 
       let dataPoints = [];
       let choiceList = this.poll.choices;
@@ -54,7 +62,7 @@ class Show extends Component {
       for (var i = 0; i < this.poll.choices.length; i++) {
         let choiceObj = {
           y: `${choiceList[i].votes}`,
-          label: `${choiceList[i].text}`,
+          label: `${choiceList[i].text}`
         };
         dataPoints.push(choiceObj);
       }
@@ -74,9 +82,9 @@ class Show extends Component {
             legendText: "{label}",
             indexLabelFontSize: 16,
             indexLabel: "{y} votes",
-            dataPoints: dataPoints,
-          },
-        ],
+            dataPoints: dataPoints
+          }
+        ]
       };
 
       return (
@@ -86,7 +94,6 @@ class Show extends Component {
           <div className="ShowContainer">
             <h2 className="Title">{this.poll.question}</h2>
             <p>{this.poll.description}</p>
-
             <div>
               <h1></h1>
               <CanvasJSChart
@@ -101,6 +108,9 @@ class Show extends Component {
             <p className="User">Created By: {this.poll.user.name}</p>
 
             <hr />
+            <button type="button" className="Delete">
+              Delete Poll
+            </button>
           </div>
         </div>
       );

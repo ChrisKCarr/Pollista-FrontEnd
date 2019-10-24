@@ -14,7 +14,7 @@ class Create extends Component {
     this.state = {
       question: "",
       description: "",
-      choices: [{ 0: "" }, { 1: "" }],
+      choices: [{ 0: "" }, { 1: "" }]
     };
     this.inputsNeeded = 2;
   }
@@ -39,7 +39,7 @@ class Create extends Component {
             value={choiceArr[i][i]}
             onChange={e => this.handleChange(e)}
           />
-        </li>,
+        </li>
       );
     }
     return inputs;
