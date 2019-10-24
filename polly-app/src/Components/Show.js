@@ -7,6 +7,7 @@ import CanvasJSReact from "./Canvas/canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Show extends Component {
+  //setting the context type to the object of poll context
   static contextType = PollContext;
   findPoll = () => {
     if (this.context.polls) {

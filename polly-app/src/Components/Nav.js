@@ -12,14 +12,14 @@ function Nav(props) {
   const inOrOut = () => {
     if (window.sessionStorage.jwt) {
       return (
-        <div>
+        <>
           <Link className="navLink" id="NewPoll" to="/create">
             Create New Poll
           </Link>
           <button className="navLink" id="Logout" onClick={e => handleClick()}>
             Logout
           </button>
-        </div>
+        </>
       );
     } else {
       return (
@@ -34,14 +34,12 @@ function Nav(props) {
     }
   };
   return (
-    <div>
+    <div className="navContainer">
       <nav>
-        <div className="navContainer">
-          <Link className="navLink" id="Home" to="/">
-            Home
-          </Link>
-          {inOrOut()}
-        </div>
+        <Link className="navLink" id="Home" to="/">
+          Home
+        </Link>
+        {inOrOut()}
       </nav>
     </div>
   );
