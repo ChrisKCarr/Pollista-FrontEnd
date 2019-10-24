@@ -20,7 +20,14 @@ class Show extends Component {
 
   renderChoiceList = poll => {
     return poll.choices.map(obj => {
-      return <button className="choices">{obj.text}</button>;
+      return (
+        <button
+          onClick={e => this.handleChange(e, this.poll, obj)}
+          className="choices"
+        >
+          {obj.text}
+        </button>
+      );
     });
   };
   handleChange = async (event, poll, obj) => {
@@ -33,18 +40,11 @@ class Show extends Component {
 
   render() {
     this.poll = this.findPoll();
-
     if (this.poll) {
-      this.options = this.poll.choices.map((obj, index) => {
-        return (
-          <button
-            className="choices"
-            onClick={e => this.handleChange(e, this.poll, obj)}
-            key={index}
-          >
-            {obj.text} Votes: {obj.votes}
-          </button>
-        );
+      this.graphChoices = this.poll.choices.map(choice => {
+        let votes = choice.votes;
+        let label = choice.text;
+        return `${`y: ${votes}, label: ${label}`}`;
       });
       console.log("Poll: ", this.poll);
 

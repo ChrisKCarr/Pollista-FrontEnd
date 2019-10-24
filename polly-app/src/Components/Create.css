@@ -1,14 +1,25 @@
 .pollForm {
   display: flex;
   justify-content: space-around;
+  text-decoration: none;
 }
 .Title {
   font-size: 3em;
   text-align: center;
 }
-form {
+.jumbotron {
   text-align: center;
+  display:fixed;
+  text-decoration: none;
+  align-items: center;
+
 }
+ul {
+  list-style: none;
+  text-decoration: none;
+  margin-left: -22px;
+}
+
 .Button {
   padding: 0.5em;
   background-color: #ccffcc;
