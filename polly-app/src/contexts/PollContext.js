@@ -1,32 +1,60 @@
 import React from "react";
 import pollyApi from "../apis/polly-api";
-
 //Gets list of polls
 const getPolls = async () => {
   let polls = await pollyApi.get();
   return polls;
 };
 //Create context object
-
 let Context = React.createContext([]);
-
 //Mange context logic
 export class PollStore extends React.Component {
-  state = { polls: [] };
+  state = { polls: [], user: null };
   componentDidMount = async () => {
     await this.refresh();
   };
   newPoll = async poll => {
-    let res = await pollyApi.post("/newpoll", poll);
-    this.setState({ polls: [...this.state.polls, res.data] });
+    try {
+      let res = await pollyApi.post("/newpoll", poll, {
+        headers: {
+          token: window.sessionStorage.jwt,
+        },
+      });
+      this.setState({ polls: [...this.state.polls, res.data] });
+    } catch (err) {
+      console.log(err);
+    }
   };
-  updatePoll = async poll => {
-    await pollyApi.put(`/update/${poll._id}`, poll);
-    await this.refresh();
+  logOut = async () => {
+    console.log(window.sessionStorage.jwt);
+    pollyApi.get("/auth/logout", {
+      headers: {
+        token: window.sessionStorage.jwt,
+      },
+    });
+    sessionStorage.clear();
+    this.setState({ user: null });
+  };
+  updatePoll = async (poll, token = window.sessionStorage.jwt) => {
+    try {
+      let res = await pollyApi.put(`/update/${poll._id}`, poll, {
+        headers: {
+          token: token,
+        },
+      });
+      await this.refresh();
+    } catch (err) {
+      console.log(err);
+    }
   };
   refresh = async () => {
-    let polls = await getPolls();
-    this.setState({ polls: polls.data });
+    try {
+      let polls = await getPolls();
+      let token = window.sessionStorage.jwt;
+      let user = token ? await pollyApi.get(`/auth/${token}`) : null;
+      if (user) user = user.data;
+      this.setState({ polls: polls.data, user: user });
+    } catch (err) {}
   };
   render() {
     return (
@@ -35,6 +63,8 @@ export class PollStore extends React.Component {
           ...this.state,
           newPoll: this.newPoll,
           updatePoll: this.updatePoll,
+          refresh: this.refresh,
+          logOut: this.logOut,
         }}
       >
         {this.props.children}
@@ -43,16 +73,3 @@ export class PollStore extends React.Component {
   }
 }
 export default Context;
-/*import PollContext from "../contexts/PollContext";
------------------------
-  static contextType = PollContext;
-  ----------------------------------
-      this.context.newPoll({
-      question: "What time do you wake up?",
-      choices: [
-        { text: "6am" },
-        { text: "8am" },
-        { text: "10am" },
-        { text: "noon" },
-      ],
-    });*/

@@ -55,7 +55,7 @@ class Show extends Component {
             <div className="choiceButtons">
               {this.renderChoiceList(this.poll)}
             </div>
-            <p className="User">Created By: {this.poll.user}</p>
+            <p className="User">Created By: {this.poll.user.name}</p>
 
             <hr />
           </div>

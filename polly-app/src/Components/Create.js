@@ -14,6 +14,7 @@ class Create extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleChange = event => {
     let id = event.target.id;
     return this.setState({ [id]: event.target.value });
@@ -38,6 +39,7 @@ class Create extends Component {
      ],
    });*/
   }
+
   render() {
     console.log(this.state);
 
@@ -68,6 +70,7 @@ class Create extends Component {
             />
           </label>
           <br></br>
+
           {/* <label>
            <h3>Type: </h3>
            <select>
