@@ -20,11 +20,17 @@ class Show extends Component {
 
   renderChoiceList = poll => {
     return poll.choices.map(obj => {
-      return <button className="choices">{obj.text}</button>;
+      return (
+        <button
+          onClick={e => this.handleChange(e, this.poll, obj)}
+          className="choices"
+        >
+          {obj.text}
+        </button>
+      );
     });
   };
   handleChange = async (event, poll, obj) => {
-    console.log("---------------");
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
       await this.context.updatePoll(poll, "9g6hiE3ex2T");
@@ -33,21 +39,7 @@ class Show extends Component {
 
   render() {
     this.poll = this.findPoll();
-
     if (this.poll) {
-      this.options = this.poll.choices.map((obj, index) => {
-        return (
-          <button
-            className="choices"
-            onClick={e => this.handleChange(e, this.poll, obj)}
-            key={index}
-          >
-            {obj.text} Votes: {obj.votes}
-          </button>
-        );
-      });
-      console.log("Poll: ", this.poll);
-
       this.graphChoices = this.poll.choices.map(choice => {
         let votes = choice.votes;
         let label = choice.text;
@@ -62,7 +54,7 @@ class Show extends Component {
       for (var i = 0; i < this.poll.choices.length; i++) {
         let choiceObj = {
           y: `${choiceList[i].votes}`,
-          label: `${choiceList[i].text}`
+          label: `${choiceList[i].text}`,
         };
         dataPoints.push(choiceObj);
       }
@@ -82,9 +74,9 @@ class Show extends Component {
             legendText: "{label}",
             indexLabelFontSize: 16,
             indexLabel: "{y} votes",
-            dataPoints: dataPoints
-          }
-        ]
+            dataPoints: dataPoints,
+          },
+        ],
       };
 
       return (
@@ -94,6 +86,7 @@ class Show extends Component {
           <div className="ShowContainer">
             <h2 className="Title">{this.poll.question}</h2>
             <p>{this.poll.description}</p>
+
             <div>
               <h1></h1>
               <CanvasJSChart
