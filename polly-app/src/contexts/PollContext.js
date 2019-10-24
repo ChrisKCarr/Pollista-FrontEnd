@@ -15,7 +15,11 @@ export class PollStore extends React.Component {
   };
   newPoll = async poll => {
     try {
-      let res = await pollyApi.post("/newpoll", poll);
+      let res = await pollyApi.post("/newpoll", poll, {
+        headers: {
+          token: window.sessionStorage.jwt,
+        },
+      });
       this.setState({ polls: [...this.state.polls, res.data] });
     } catch (err) {
       console.log(err);
@@ -30,8 +34,6 @@ export class PollStore extends React.Component {
     });
     sessionStorage.clear();
     this.setState({ user: null });
-    console.log(sessionStorage);
-    console.log(this.state);
   };
   updatePoll = async (poll, token = window.sessionStorage.jwt) => {
     try {
@@ -50,12 +52,9 @@ export class PollStore extends React.Component {
       let polls = await getPolls();
       let token = window.sessionStorage.jwt;
       let user = token ? await pollyApi.get(`/auth/${token}`) : null;
-      console.log(user);
       if (user) user = user.data;
       this.setState({ polls: polls.data, user: user });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   render() {
     return (

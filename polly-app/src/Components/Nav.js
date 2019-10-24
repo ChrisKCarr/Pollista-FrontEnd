@@ -3,15 +3,23 @@ import "./Nav.css";
 import { Link, Route } from "react-router-dom";
 import PollContext from "../contexts/PollContext";
 
-function Nav() {
+function Nav(props) {
   const context = useContext(PollContext);
+  const handleClick = () => {
+    context.logOut();
+    props.history.push("/");
+  };
   const inOrOut = () => {
-    console.log(context);
     if (window.sessionStorage.jwt) {
       return (
-        <button className="navLink" id="Logout" onClick={e => context.logOut()}>
-          Logout
-        </button>
+        <div>
+          <Link className="navLink" id="NewPoll" to="/create">
+            Create New Poll
+          </Link>
+          <button className="navLink" id="Logout" onClick={e => handleClick()}>
+            Logout
+          </button>
+        </div>
       );
     } else {
       return (
@@ -31,10 +39,6 @@ function Nav() {
         <div className="navContainer">
           <Link className="navLink" id="Home" to="/">
             Home
-          </Link>
-
-          <Link className="navLink" id="NewPoll" to="/create">
-            Create New Poll
           </Link>
           {inOrOut()}
         </div>
