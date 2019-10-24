@@ -3,9 +3,11 @@ import { Link, Route } from "react-router-dom";
 import "./Show.css";
 import Nav from "./Nav";
 import PollContext from "../contexts/PollContext";
-import Graph from "./Graph";
+import CanvasJSReact from "./Canvas/canvasjs.react";
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Show extends Component {
+  //setting the context type to the object of poll context
   static contextType = PollContext;
   findPoll = () => {
     if (this.context.polls) {
@@ -21,8 +23,8 @@ class Show extends Component {
       return <button className="choices">{obj.text}</button>;
     });
   };
-
   handleChange = async (event, poll, obj) => {
+    console.log("---------------");
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
       await this.context.updatePoll(poll, "9g6hiE3ex2T");
@@ -44,7 +46,47 @@ class Show extends Component {
           </button>
         );
       });
-      console.log(this.poll);
+      console.log("Poll: ", this.poll);
+
+      this.graphChoices = this.poll.choices.map(choice => {
+        let votes = choice.votes;
+        let label = choice.text;
+        return `${`y: ${votes}, label: ${label}`}`;
+      });
+
+      let dataPoints = [];
+      let choiceList = this.poll.choices;
+
+      // let totalVotes = Math.sum();
+      // console.log("Total votes: ", totalVotes);
+      for (var i = 0; i < this.poll.choices.length; i++) {
+        let choiceObj = {
+          y: `${choiceList[i].votes}`,
+          label: `${choiceList[i].text}`
+        };
+        dataPoints.push(choiceObj);
+      }
+      console.log("DataPoints: ", dataPoints);
+      const options = {
+        exportEnabled: false,
+        animationEnabled: true,
+        //   title: {
+        //     text: ""
+        //   },
+        data: [
+          {
+            type: "pie",
+            startAngle: 75,
+            toolTipContent: "<b>{label}</b>",
+            showInLegend: "true",
+            legendText: "{label}",
+            indexLabelFontSize: 16,
+            indexLabel: "{y} votes",
+            dataPoints: dataPoints
+          }
+        ]
+      };
+
       return (
         <div>
           <Route component={Nav} />
@@ -52,13 +94,23 @@ class Show extends Component {
           <div className="ShowContainer">
             <h2 className="Title">{this.poll.question}</h2>
             <p>{this.poll.description}</p>
-            <Route component={Graph} />
+            <div>
+              <h1></h1>
+              <CanvasJSChart
+                options={options}
+                /* onRef={ref => this.chart = ref} */
+              />
+              {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+            </div>
             <div className="choiceButtons">
               {this.renderChoiceList(this.poll)}
             </div>
-            <p className="User">Created By: {this.poll.user}</p>
+            <p className="User">Created By: {this.poll.user.name}</p>
 
             <hr />
+            <button type="button" className="Delete">
+              Delete Poll
+            </button>
           </div>
         </div>
       );

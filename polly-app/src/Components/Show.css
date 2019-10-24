@@ -34,3 +34,15 @@
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+.Delete {
+  font-family: inherit;
+  font-size: 100%;
+  padding: 0.5em 1em;
+  color: rgb(247, 247, 247);
+  border: 1px solid #999;
+  border: none transparent;
+  background-color: #e6e6e6;
+  text-decoration: none;
+  border-radius: 2px;
+  background: rgb(202, 60, 60);
+}

@@ -2,31 +2,52 @@ nav {
   background: rgb(86, 175, 226);
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   padding: 0 30px;
   height: 4em;
   border-radius: 8px;
+ 
 }
 .navLink {
   font-size: 2em;
   color: white;
   text-decoration: none;
+  
 }
 .navLink:hover {
   color: blue;
   text-decoration: none;
 }
+.navContainer {
+  display: inline-block;
+  width: 100vw;
+}
 #Home {
   padding-left: 20px;
+  margin-right: 20px;
 }
 #NewPoll {
-  position: absolute;
+  position: sticky;
   top: 0;
   right: 43%;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 #Login {
-  position: absolute;
+  position: sticky;
   top: 0;
   right: 0;
   padding-right: 20px;
+  margin-left: 20px;
 }
+#Logout {
+  position: sticky;
+  top: 0;
+  right: 0;
+  padding-right: 20px;
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  background: rgb(86, 175, 226);
+  border: none;
+}
+/* media query */
