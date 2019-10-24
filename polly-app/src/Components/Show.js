@@ -37,7 +37,7 @@ class Show extends Component {
           </button>
         );
       });
-
+      console.log(this.poll);
       return (
         <div>
           <Route component={Nav} />

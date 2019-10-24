@@ -39,7 +39,8 @@ export class PollStore extends React.Component {
       let token = window.sessionStorage.jwt;
       let user = null;
       if (token) user = await pollyApi.get(`/auth/${token}`);
-      this.setState({ polls: polls.data, user: user.data });
+      if (user) user = user.data;
+      this.setState({ polls: polls.data, user: user });
     } catch (err) {
       console.log(err);
     }
