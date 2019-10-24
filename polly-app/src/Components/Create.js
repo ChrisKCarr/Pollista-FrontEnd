@@ -83,7 +83,7 @@ class Create extends Component {
       <div>
         <Route component={Nav} />
         <h1 className="Title">Create a new poll</h1>
-        <form onSubmit={e => this.handleSubmit(e)}>
+        <form className="jumbotron" onSubmit={e => this.handleSubmit(e)}>
           <label>
             <h3>Question: </h3>
             <input
@@ -107,7 +107,7 @@ class Create extends Component {
           </label>
           <br></br>
           <h3>Choices: </h3>
-          <ul>{this.renderInputList()}</ul>
+          <ul className="li">{this.renderInputList()}</ul>
           <div>
             <div className="Counter-row">{this.state.choiceList}</div>
             <div className="choiceButtonsContainer">
