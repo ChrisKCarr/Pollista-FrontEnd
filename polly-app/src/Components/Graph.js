@@ -4,6 +4,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Graph extends Component {
   render() {
+    console.log(this.props.poll + " !");
     const options = {
       exportEnabled: false,
       animationEnabled: true,

@@ -3,7 +3,8 @@ import { Link, Route } from "react-router-dom";
 import "./Show.css";
 import Nav from "./Nav";
 import PollContext from "../contexts/PollContext";
-import Graph from "./Graph";
+import CanvasJSReact from "./Canvas/canvasjs.react";
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Show extends Component {
   static contextType = PollContext;
@@ -43,7 +44,47 @@ class Show extends Component {
           </button>
         );
       });
-      console.log(this.poll);
+      console.log("Poll: ", this.poll);
+
+      this.graphChoices = this.poll.choices.map(choice => {
+        let votes = choice.votes;
+        let label = choice.text;
+        return `${`y: ${votes}, label: ${label}`}`;
+      });
+
+      let dataPoints = [];
+      let choiceList = this.poll.choices;
+
+      // let totalVotes = Math.sum();
+      // console.log("Total votes: ", totalVotes);
+      for (var i = 0; i < this.poll.choices.length; i++) {
+        let choiceObj = {
+          y: `${choiceList[i].votes}`,
+          label: `${choiceList[i].text}`
+        };
+        dataPoints.push(choiceObj);
+      }
+      console.log("DataPoints: ", dataPoints);
+      const options = {
+        exportEnabled: false,
+        animationEnabled: true,
+        //   title: {
+        //     text: ""
+        //   },
+        data: [
+          {
+            type: "pie",
+            startAngle: 75,
+            toolTipContent: "<b>{label}</b>",
+            showInLegend: "true",
+            legendText: "{label}",
+            indexLabelFontSize: 16,
+            indexLabel: "{y} votes",
+            dataPoints: dataPoints
+          }
+        ]
+      };
+
       return (
         <div>
           <Route component={Nav} />
@@ -51,7 +92,14 @@ class Show extends Component {
           <div className="ShowContainer">
             <h2 className="Title">{this.poll.question}</h2>
             <p>{this.poll.description}</p>
-            <Route component={Graph} />
+            <div>
+              <h1></h1>
+              <CanvasJSChart
+                options={options}
+                /* onRef={ref => this.chart = ref} */
+              />
+              {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+            </div>
             <div className="choiceButtons">
               {this.renderChoiceList(this.poll)}
             </div>
