@@ -24,6 +24,7 @@ class Show extends Component {
     });
   };
   handleChange = async (event, poll, obj) => {
+    console.log("---------------");
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
       await this.context.updatePoll(poll, "9g6hiE3ex2T");
