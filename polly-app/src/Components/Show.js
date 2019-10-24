@@ -16,18 +16,16 @@ class Show extends Component {
     }
   };
 
-
   renderChoiceList = poll => {
     return poll.choices.map(obj => {
       return <button className="choices">{obj.text}</button>;
     });
-
+  };
   handleChange = async (event, poll, obj) => {
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
       await this.context.updatePoll(poll, "9g6hiE3ex2T");
     }
-
   };
 
   render() {
@@ -51,11 +49,13 @@ class Show extends Component {
           <Route component={Nav} />
 
           <div className="ShowContainer">
-            <h2 className="Title">{poll.question}</h2>
-            <p>{poll.description}</p>
+            <h2 className="Title">{this.poll.question}</h2>
+            <p>{this.poll.description}</p>
             <Route component={Graph} />
-            <div className="choiceButtons">{this.renderChoiceList(poll)}</div>
-            <p className="User">Created By: {poll.user}</p>
+            <div className="choiceButtons">
+              {this.renderChoiceList(this.poll)}
+            </div>
+            <p className="User">Created By: {this.poll.user.name}</p>
 
             <hr />
           </div>
