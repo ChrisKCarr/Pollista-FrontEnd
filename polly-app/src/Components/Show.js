@@ -3,6 +3,7 @@ import { Link, Route } from "react-router-dom";
 import "./Show.css";
 import Nav from "./Nav";
 import PollContext from "../contexts/PollContext";
+import Graph from "./Graph";
 
 class Show extends Component {
   static contextType = PollContext;
@@ -15,11 +16,18 @@ class Show extends Component {
     }
   };
 
+
+  renderChoiceList = poll => {
+    return poll.choices.map(obj => {
+      return <button className="choices">{obj.text}</button>;
+    });
+
   handleChange = async (event, poll, obj) => {
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
       await this.context.updatePoll(poll, "9g6hiE3ex2T");
     }
+
   };
 
   render() {
@@ -41,12 +49,14 @@ class Show extends Component {
       return (
         <div>
           <Route component={Nav} />
-          <div className="ShowCOntainer">
-            <h2 className="Title">{this.poll.question}</h2>
-            <p>{this.poll.description}</p>
 
-            <div className="choiceButtons">{this.options}</div>
-            <p className="User">Created By: {this.poll.user.name}</p>
+          <div className="ShowContainer">
+            <h2 className="Title">{poll.question}</h2>
+            <p>{poll.description}</p>
+            <Route component={Graph} />
+            <div className="choiceButtons">{this.renderChoiceList(poll)}</div>
+            <p className="User">Created By: {poll.user}</p>
+
             <hr />
           </div>
         </div>
