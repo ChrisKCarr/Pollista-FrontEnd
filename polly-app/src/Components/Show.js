@@ -75,8 +75,6 @@ class Show extends Component {
       let dataPoints = [];
       let choiceList = this.poll.choices;
 
-      // let totalVotes = Math.sum();
-      // console.log("Total votes: ", totalVotes);
       for (var i = 0; i < this.poll.choices.length; i++) {
         let choiceObj = {
           y: `${choiceList[i].votes}`,
@@ -87,9 +85,7 @@ class Show extends Component {
       const options = {
         exportEnabled: false,
         animationEnabled: true,
-        //   title: {
-        //     text: ""
-        //   },
+
         data: [
           {
             type: "pie",
