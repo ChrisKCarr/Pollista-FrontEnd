@@ -78,11 +78,6 @@ class Show extends Component {
   render() {
     this.poll = this.findPoll();
     if (this.poll) {
-
-      let dataPoints = [];
-      let choiceList = this.poll.choices;
-
-
       //Creates the list of datapoints which the graph will render.
       let dataPoints = [];
       let choiceList = this.poll.choices;
@@ -90,7 +85,7 @@ class Show extends Component {
       for (var i = 0; i < this.poll.choices.length; i++) {
         let choiceObj = {
           y: `${choiceList[i].votes}`,
-          label: `${choiceList[i].text}`
+          label: `${choiceList[i].text}`,
         };
         if (choiceList[i].votes > 0) {
           dataPoints.push(choiceObj);
@@ -112,9 +107,9 @@ class Show extends Component {
             legendText: "{label}",
             indexLabelFontSize: 16,
             indexLabel: "{y} votes",
-            dataPoints: dataPoints
-          }
-        ]
+            dataPoints: dataPoints,
+          },
+        ],
       };
       return (
         <div>
