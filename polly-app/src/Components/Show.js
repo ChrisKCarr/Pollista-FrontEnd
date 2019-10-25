@@ -4,6 +4,7 @@ import "./Show.css";
 import Nav from "./Nav";
 import PollContext from "../contexts/PollContext";
 import CanvasJSReact from "./Canvas/canvasjs.react";
+import { runInThisContext } from "vm";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Show extends Component {
@@ -17,12 +18,30 @@ class Show extends Component {
       return results;
     }
   };
-  //Creates a button for each poll choice
+  ifAuthor = () => {
+    if (this.context.user) {
+      if (this.poll.user._id === this.context.user._id) {
+        return (
+          <button
+            type="button"
+            className="Delete"
+            onClick={e => this.handleDelete(this.poll)}
+          >
+            Delete Poll
+          </button>
+        );
+      } else {
+        return <div></div>;
+      }
+    }
+  };
+
+  //Create a button for each choice in poll
   renderChoiceList = poll => {
     return poll.choices.map(obj => {
       return (
         <button
-          onClick={e => this.handleChange(e, this.poll, obj)}
+          onClick={e => this.handleVote(this.poll, obj)}
           className="choices"
         >
           {obj.text}
@@ -30,12 +49,18 @@ class Show extends Component {
       );
     });
   };
+
+  //Greates a request to the backend to delete this current poll.
+  handleDelete = async (poll, obj) => {
+    this.context.deletePoll(poll);
+    this.props.history.push("/");
+  };
+
   //Checks if user is logged in, if they are, they can vote on the poll.
-  handleChange = async (event, poll, obj) => {
-    console.log("---------------");
+  handleVote = async (poll, obj) => {
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
-      await this.context.updatePoll(poll, "9g6hiE3ex2T");
+      await this.context.voteOnPoll(poll);
     }
   };
 
@@ -68,6 +93,7 @@ class Show extends Component {
         }
       }
       console.log("DataPoints: ", dataPoints);
+
       //These are the options for the graph
       const options = {
         exportEnabled: false,
@@ -88,7 +114,6 @@ class Show extends Component {
           }
         ]
       };
-
       return (
         <div>
           <Route component={Nav} />
@@ -110,9 +135,7 @@ class Show extends Component {
             <p className="User">Created By: {this.poll.user.name}</p>
 
             <hr />
-            <button type="button" className="Delete">
-              Delete Poll
-            </button>
+            {this.ifAuthor()}
           </div>
         </div>
       );
