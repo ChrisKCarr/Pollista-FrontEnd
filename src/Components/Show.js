@@ -77,6 +77,8 @@ class Show extends Component {
 
   render() {
     this.poll = this.findPoll();
+    console.log(this.context.user);
+    console.log(this.poll);
     if (this.poll) {
       //Creates the list of datapoints which the graph will render.
       let dataPoints = [];
