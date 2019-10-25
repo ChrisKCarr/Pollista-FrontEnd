@@ -13,14 +13,14 @@ class Show extends Component {
   ifUser = () => {
     if (this.context.user) {
       if (this.context.user.votedOn.includes(this.poll._id)) {
-        this.canVote = false
-        return 'Users can only vote once per poll'
-      } else {
-        this.canVote = true
+        this.canVote = false;
+        return "Users can only vote once per poll";
+      } else if (this.state.alertDisplay !== "none") {
+        this.canVote = true;
         this.setState({ alertDisplay: "none" });
       }
     } else {
-      this.canVote = false
+      this.canVote = false;
       return "Please login to vote";
     }
   };
