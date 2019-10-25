@@ -39,7 +39,7 @@ class Show extends Component {
     return poll.choices.map(obj => {
       return (
         <button
-          onClick={e => this.handleChange(this.poll, obj)}
+          onClick={e => this.handleVote(this.poll, obj)}
           className="choices"
         >
           {obj.text}
@@ -51,10 +51,10 @@ class Show extends Component {
     this.context.deletePoll(poll);
     this.props.history.push("/");
   };
-  handleChange = async (poll, obj) => {
+  handleVote = async (poll, obj) => {
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
-      await this.context.updatePoll(poll, "9g6hiE3ex2T");
+      await this.context.voteOnPoll(poll);
     }
   };
 
