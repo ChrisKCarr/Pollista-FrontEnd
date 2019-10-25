@@ -17,7 +17,7 @@ class Show extends Component {
       return results;
     }
   };
-
+  //Creates a button for each poll choice
   renderChoiceList = poll => {
     return poll.choices.map(obj => {
       return (
@@ -30,6 +30,7 @@ class Show extends Component {
       );
     });
   };
+  //Checks if user is logged in, if they are, they can vote on the poll.
   handleChange = async (event, poll, obj) => {
     console.log("---------------");
     if (window.sessionStorage.jwt) {
@@ -41,32 +42,33 @@ class Show extends Component {
   render() {
     this.poll = this.findPoll();
     if (this.poll) {
-      this.graphChoices = this.poll.choices.map(choice => {
-        let votes = choice.votes;
-        let label = choice.text;
-        return `${`y: ${votes}, label: ${label}`}`;
-      });
+      // this.graphChoices = this.poll.choices.map(choice => {
+      //   let votes = choice.votes;
+      //   let label = choice.text;
+      //   return `${`y: ${votes}, label: ${label}`}`;
+      // });
       console.log("Poll: ", this.poll);
 
-      this.graphChoices = this.poll.choices.map(choice => {
-        let votes = choice.votes;
-        let label = choice.text;
-        return `${`y: ${votes}, label: ${label}`}`;
-      });
+      // this.graphChoices = this.poll.choices.map(choice => {
+      //   let votes = choice.votes;
+      //   let label = choice.text;
+      //   return `${`y: ${votes}, label: ${label}`}`;
+      // });
 
+      //Creates the list of datapoints which the graph will render.
       let dataPoints = [];
       let choiceList = this.poll.choices;
-
-      // let totalVotes = Math.sum();
-      // console.log("Total votes: ", totalVotes);
       for (var i = 0; i < this.poll.choices.length; i++) {
         let choiceObj = {
           y: `${choiceList[i].votes}`,
           label: `${choiceList[i].text}`
         };
-        dataPoints.push(choiceObj);
+        if (choiceList[i].votes > 0) {
+          dataPoints.push(choiceObj);
+        }
       }
       console.log("DataPoints: ", dataPoints);
+      //These are the options for the graph
       const options = {
         exportEnabled: false,
         animationEnabled: true,
