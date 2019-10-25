@@ -4,6 +4,7 @@ import "./Show.css";
 import Nav from "./Nav";
 import PollContext from "../contexts/PollContext";
 import CanvasJSReact from "./Canvas/canvasjs.react";
+import { runInThisContext } from "vm";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Show extends Component {
@@ -17,12 +18,28 @@ class Show extends Component {
       return results;
     }
   };
-
+  ifAuthor = () => {
+    if (this.context.user) {
+      if (this.poll.user._id === this.context.user._id) {
+        return (
+          <button
+            type="button"
+            className="Delete"
+            onClick={e => this.handleDelete(this.poll)}
+          >
+            Delete Poll
+          </button>
+        );
+      } else {
+        return <div></div>;
+      }
+    }
+  };
   renderChoiceList = poll => {
     return poll.choices.map(obj => {
       return (
         <button
-          onClick={e => this.handleChange(e, this.poll, obj)}
+          onClick={e => this.handleChange(this.poll, obj)}
           className="choices"
         >
           {obj.text}
@@ -30,8 +47,11 @@ class Show extends Component {
       );
     });
   };
-  handleChange = async (event, poll, obj) => {
-    console.log("---------------");
+  handleDelete = async (poll, obj) => {
+    this.context.deletePoll(poll);
+    this.props.history.push("/");
+  };
+  handleChange = async (poll, obj) => {
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
       await this.context.updatePoll(poll, "9g6hiE3ex2T");
@@ -46,7 +66,6 @@ class Show extends Component {
         let label = choice.text;
         return `${`y: ${votes}, label: ${label}`}`;
       });
-      console.log("Poll: ", this.poll);
 
       this.graphChoices = this.poll.choices.map(choice => {
         let votes = choice.votes;
@@ -62,11 +81,10 @@ class Show extends Component {
       for (var i = 0; i < this.poll.choices.length; i++) {
         let choiceObj = {
           y: `${choiceList[i].votes}`,
-          label: `${choiceList[i].text}`
+          label: `${choiceList[i].text}`,
         };
         dataPoints.push(choiceObj);
       }
-      console.log("DataPoints: ", dataPoints);
       const options = {
         exportEnabled: false,
         animationEnabled: true,
@@ -82,11 +100,10 @@ class Show extends Component {
             legendText: "{label}",
             indexLabelFontSize: 16,
             indexLabel: "{y} votes",
-            dataPoints: dataPoints
-          }
-        ]
+            dataPoints: dataPoints,
+          },
+        ],
       };
-
       return (
         <div>
           <Route component={Nav} />
@@ -108,9 +125,7 @@ class Show extends Component {
             <p className="User">Created By: {this.poll.user.name}</p>
 
             <hr />
-            <button type="button" className="Delete">
-              Delete Poll
-            </button>
+            {this.ifAuthor()}
           </div>
         </div>
       );

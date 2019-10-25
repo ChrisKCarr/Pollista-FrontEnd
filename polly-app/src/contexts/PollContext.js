@@ -47,6 +47,19 @@ export class PollStore extends React.Component {
       console.log(err);
     }
   };
+  deletePoll = async poll => {
+    let token = window.sessionStorage.jwt;
+    try {
+      let res = await pollyApi.delete(`/delete/${poll._id}`, {
+        headers: {
+          token: token,
+        },
+      });
+      await this.refresh();
+    } catch (err) {
+      console.log(err);
+    }
+  };
   refresh = async () => {
     try {
       let polls = await getPolls();
@@ -65,6 +78,7 @@ export class PollStore extends React.Component {
           updatePoll: this.updatePoll,
           refresh: this.refresh,
           logOut: this.logOut,
+          deletePoll: this.deletePoll,
         }}
       >
         {this.props.children}
