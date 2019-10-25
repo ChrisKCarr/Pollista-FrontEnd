@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link, Route } from "react-router-dom";
 import Poll from "./Poll";
 import "./Home.css";
 import queryString from "query-string";
@@ -17,8 +16,8 @@ class Home extends Component {
     }
   };
   renderPollList = () => {
-    return this.context.polls.map(poll => {
-      return <Poll pollObject={poll} />;
+    return this.context.polls.map((poll, i) => {
+      return <Poll key={i} pollObject={poll} />;
     });
   };
   render() {

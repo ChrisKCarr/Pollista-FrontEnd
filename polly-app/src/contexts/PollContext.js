@@ -26,7 +26,6 @@ export class PollStore extends React.Component {
     }
   };
   logOut = async () => {
-    console.log(window.sessionStorage.jwt);
     pollyApi.get("/auth/logout", {
       headers: {
         token: window.sessionStorage.jwt,

@@ -51,12 +51,12 @@ class Create extends Component {
     let inputs = [];
     for (let i = 0; i < choiceArr.length; i++) {
       inputs.push(
-        <li>
+        <li key={i}>
           <input
             type="text"
             id={i}
             name="choice"
-            value={choiceArr[i][i]}
+            value={`${choiceArr[i][i]} `}
             onChange={e => this.handleChange(e)}
           />
         </li>,
@@ -93,8 +93,18 @@ class Create extends Component {
       let fPoll = this.props.poll;
       fPoll.description = sPoll.description;
       fPoll.question = sPoll.question;
-      let choiceArr = sPoll.choices.map((choice, i) => choice[i]);
-      fPoll.choices = choiceArr;
+      sPoll.choices.forEach((choice, i) => {
+        if (choice[i] !== "") {
+          if (fPoll.choices[i]) {
+            return (fPoll.choices[i].text = choice[i]);
+          } else {
+            fPoll.choices.push(choice[i]);
+          }
+        }
+      });
+      while (fPoll.choices.length > sPoll.choices.length) {
+        fPoll.choices.pop();
+      }
       await this.context.updatePoll(fPoll);
       this.props.history.push(`/show/${fPoll._id}`);
     } else {
@@ -104,8 +114,7 @@ class Create extends Component {
       poll.description = this.state.description;
       let choices = choiceArr.map((choice, i) => choice[i]);
       poll.choices = choices;
-      this.context.newPoll(poll);
-      this.props.history.push("/");
+      this.props.history.push("/", { poll });
     }
   };
   render() {

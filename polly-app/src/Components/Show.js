@@ -9,6 +9,14 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 class Show extends Component {
   //setting the context type to the object of poll context
   static contextType = PollContext;
+  findPoll = () => {
+    if (this.context.polls) {
+      let results = this.context.polls.find(obj => {
+        return obj._id === this.props.match.params.id;
+      });
+      return results;
+    }
+  };
   ifAuthor = () => {
     if (this.context.user) {
       if (this.poll.user._id === this.context.user._id) {
@@ -38,9 +46,10 @@ class Show extends Component {
     }
   };
   renderChoiceList = poll => {
-    return poll.choices.map(obj => {
+    return poll.choices.map((obj, i) => {
       return (
         <button
+          key={i}
           onClick={e => this.handleVote(this.poll, obj)}
           className="choices"
         >
@@ -61,20 +70,8 @@ class Show extends Component {
   };
 
   render() {
-    this.poll = this.props.location.state.poll;
+    this.poll = this.findPoll();
     if (this.poll) {
-      this.graphChoices = this.poll.choices.map(choice => {
-        let votes = choice.votes;
-        let label = choice.text;
-        return `${`y: ${votes}, label: ${label}`}`;
-      });
-
-      this.graphChoices = this.poll.choices.map(choice => {
-        let votes = choice.votes;
-        let label = choice.text;
-        return `${`y: ${votes}, label: ${label}`}`;
-      });
-
       let dataPoints = [];
       let choiceList = this.poll.choices;
 
@@ -114,7 +111,6 @@ class Show extends Component {
             <h2 className="Title">{this.poll.question}</h2>
             <p>{this.poll.description}</p>
             <div>
-              <h1></h1>
               <CanvasJSChart
                 options={options}
                 /* onRef={ref => this.chart = ref} */
