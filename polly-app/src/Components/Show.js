@@ -45,6 +45,8 @@ class Show extends Component {
       }
     }
   };
+
+  //Create a button for each choice in poll
   renderChoiceList = poll => {
     return poll.choices.map((obj, i) => {
       return (
@@ -58,10 +60,14 @@ class Show extends Component {
       );
     });
   };
+
+  //Greates a request to the backend to delete this current poll.
   handleDelete = async (poll, obj) => {
     this.context.deletePoll(poll);
     this.props.history.push("/");
   };
+
+  //Checks if user is logged in, if they are, they can vote on the poll.
   handleVote = async (poll, obj) => {
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
@@ -72,16 +78,27 @@ class Show extends Component {
   render() {
     this.poll = this.findPoll();
     if (this.poll) {
+
+      let dataPoints = [];
+      let choiceList = this.poll.choices;
+
+
+      //Creates the list of datapoints which the graph will render.
       let dataPoints = [];
       let choiceList = this.poll.choices;
 
       for (var i = 0; i < this.poll.choices.length; i++) {
         let choiceObj = {
           y: `${choiceList[i].votes}`,
-          label: `${choiceList[i].text}`,
+          label: `${choiceList[i].text}`
         };
-        dataPoints.push(choiceObj);
+        if (choiceList[i].votes > 0) {
+          dataPoints.push(choiceObj);
+        }
       }
+      console.log("DataPoints: ", dataPoints);
+
+      //These are the options for the graph
       const options = {
         exportEnabled: false,
         animationEnabled: true,
@@ -95,9 +112,9 @@ class Show extends Component {
             legendText: "{label}",
             indexLabelFontSize: 16,
             indexLabel: "{y} votes",
-            dataPoints: dataPoints,
-          },
-        ],
+            dataPoints: dataPoints
+          }
+        ]
       };
       return (
         <div>
