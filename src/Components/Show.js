@@ -9,6 +9,18 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 class Show extends Component {
   //setting the context type to the object of poll context
   static contextType = PollContext;
+  state = { alertDisplay: "inherit" };
+  ifUser = () => {
+    if (this.context.user) {
+      if (this.context.user.votedOn.includes(this.poll._id)) {
+        return 'Users can only vote once per poll'
+      } else {
+        this.setState({ alertDisplay: "none" });
+      }
+    } else {
+      return "Please login to vote";
+    }
+  };
   findPoll = () => {
     if (this.context.polls) {
       let results = this.context.polls.find(obj => {
@@ -17,6 +29,7 @@ class Show extends Component {
       return results;
     }
   };
+
   ifAuthor = () => {
     if (this.context.user) {
       if (this.poll.user._id === this.context.user._id) {
@@ -60,7 +73,9 @@ class Show extends Component {
       );
     });
   };
-
+  display = e => {
+    this.setState({ alertDisplay: "none" });
+  };
   //Greates a request to the backend to delete this current poll.
   handleDelete = async (poll, obj) => {
     this.context.deletePoll(poll);
@@ -77,6 +92,7 @@ class Show extends Component {
 
   render() {
     this.poll = this.findPoll();
+
     if (this.poll) {
       //Creates the list of datapoints which the graph will render.
       let dataPoints = [];
@@ -91,7 +107,6 @@ class Show extends Component {
           dataPoints.push(choiceObj);
         }
       }
-      console.log("DataPoints: ", dataPoints);
 
       //These are the options for the graph
       const options = {
@@ -114,8 +129,13 @@ class Show extends Component {
       return (
         <div>
           <Route component={Nav} />
-
           <div className="ShowContainer">
+            <div style={{ display: this.state.alertDisplay }} className="alert">
+              <span className="closebtn" onClick={e => this.display()}>
+                &times;
+              </span>
+              {this.ifUser()}
+            </div>
             <h2 className="Title">{this.poll.question}</h2>
             <p>{this.poll.description}</p>
             <div>
