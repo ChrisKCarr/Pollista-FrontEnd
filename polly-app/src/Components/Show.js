@@ -57,6 +57,7 @@ class Show extends Component {
   };
 
   //Checks if user is logged in, if they are, they can vote on the poll.
+  //I was thinking of making another function here which will display the graph labels after the user has voted on the poll.
   handleVote = async (poll, obj) => {
     if (window.sessionStorage.jwt) {
       obj.votes += 1;
