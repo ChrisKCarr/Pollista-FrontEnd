@@ -4,13 +4,11 @@ nav {
   align-items: center;
   padding: 0 30px;
   height: 4em;
- 
 }
 .navLink {
   font-size: 2em;
   color: white;
   text-decoration: none;
-  
 }
 .navLink:hover {
   color: blue;
@@ -50,3 +48,14 @@ nav {
   border: none;
 }
 /* media query */
+
+@media only screen and (max-width: 600px) {
+  nav {
+    background-color: mediumseagreen;
+    display: flex;
+    justify-items: center;
+  }
+  .navLink {
+    font-size: 20px;
+  }
+}
