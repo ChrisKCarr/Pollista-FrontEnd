@@ -13,7 +13,7 @@ class Show extends Component {
   ifUser = () => {
     if (this.context.user) {
       console.log(this.poll._id);
-      console.log(this.context.user.votedOn);
+      console.log(this.context.user.votedOn.includes(this.poll._id));
     } else {
       return "Please login to vote";
     }
