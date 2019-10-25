@@ -41,8 +41,8 @@ React, Bootstrap, Canvas.js
 
 
 ## Contributors
-[Chris Carr](https://github.com/ChrisKCarr)
-[Natalie Spencer](https://github.com/gnataliespen)
-[Lauren Robinson](https://github.com/l-dev)
-[Thomas Ruffino](https://github.com/truffi01)
+[Chris Carr](https://github.com/ChrisKCarr)</br>
+[Natalie Spencer](https://github.com/gnataliespen)</br>
+[Lauren Robinson](https://github.com/l-dev)</br>
+[Thomas Ruffino](https://github.com/truffi01)</br>
 
