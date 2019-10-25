@@ -13,11 +13,14 @@ class Show extends Component {
   ifUser = () => {
     if (this.context.user) {
       if (this.context.user.votedOn.includes(this.poll._id)) {
+        this.canVote = false
         return 'Users can only vote once per poll'
       } else {
+        this.canVote = true
         this.setState({ alertDisplay: "none" });
       }
     } else {
+      this.canVote = false
       return "Please login to vote";
     }
   };
@@ -84,9 +87,11 @@ class Show extends Component {
 
   //Checks if user is logged in, if they are, they can vote on the poll.
   handleVote = async (poll, obj) => {
-    if (window.sessionStorage.jwt) {
+    if (this.canVote) {
       obj.votes += 1;
       await this.context.voteOnPoll(poll);
+    } else {
+      this.setState({ alertDisplay: "inherit" });
     }
   };
 
