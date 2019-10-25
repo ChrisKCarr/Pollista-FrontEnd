@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Poll from "./Poll";
-import "./Home.css";
 import queryString from "query-string";
 
 import PollContext from "../contexts/PollContext";
