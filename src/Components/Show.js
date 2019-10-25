@@ -12,8 +12,11 @@ class Show extends Component {
   state = { alertDisplay: "inherit" };
   ifUser = () => {
     if (this.context.user) {
-      console.log(this.poll._id);
-      console.log(this.context.user.votedOn.includes(this.poll._id));
+      if (this.context.user.votedOn.includes(this.poll._id)) {
+        return 'Users can only vote once per poll'
+      } else {
+        this.setState({ alertDisplay: "none" });
+      }
     } else {
       return "Please login to vote";
     }
