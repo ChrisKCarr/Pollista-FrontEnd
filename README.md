@@ -1,4 +1,4 @@
-# Polly App  <img align="left" width="100" height="100" src="http://www.iconarchive.com/download/i107376/google/noto-emoji-animals-nature/22271-bird.ico">
+# Pollista! <img align="left" width="100" height="100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWM8fBjN1zi9lv5EZxpwT9s_ww40tUSEZR7wBUcXiY01UrvjHd">
 
 ### Introduction
 The Polly App is for the indecisive user. When using the app you can see polls that have been added by different users, create a new poll of your liking and share it on different social media platforms, as well as see more inforamation on individual polls.
