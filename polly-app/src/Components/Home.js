@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
 import Poll from "./Poll";
-import "./Home.css";
 import queryString from "query-string";
 
 import PollContext from "../contexts/PollContext";
