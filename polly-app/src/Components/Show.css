@@ -34,7 +34,8 @@
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-.Delete {
+.Delete,
+.Edit {
   font-family: inherit;
   font-size: 100%;
   padding: 0.5em 1em;
@@ -44,5 +45,12 @@
   background-color: #e6e6e6;
   text-decoration: none;
   border-radius: 2px;
+  margin: 2px;
+}
+.Delete {
   background: rgb(202, 60, 60);
+}
+.Edit {
+  background: #f1bc31;
+  padding: 0.7em 1.6em;
 }

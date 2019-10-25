@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./Nav.css";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PollContext from "../contexts/PollContext";
 
 function Nav(props) {

@@ -4,7 +4,6 @@ import "./Show.css";
 import Nav from "./Nav";
 import PollContext from "../contexts/PollContext";
 import CanvasJSReact from "./Canvas/canvasjs.react";
-import { runInThisContext } from "vm";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Show extends Component {
@@ -22,13 +21,24 @@ class Show extends Component {
     if (this.context.user) {
       if (this.poll.user._id === this.context.user._id) {
         return (
-          <button
-            type="button"
-            className="Delete"
-            onClick={e => this.handleDelete(this.poll)}
-          >
-            Delete Poll
-          </button>
+          <div>
+            <Link
+              className="Edit"
+              to={{
+                pathname: `/update/${this.poll._id}`,
+                state: { poll: this.poll },
+              }}
+            >
+              Edit Poll
+            </Link>
+            <button
+              type="button"
+              className="Delete"
+              onClick={e => this.handleDelete(this.poll)}
+            >
+              Delete Poll
+            </button>
+          </div>
         );
       } else {
         return <div></div>;
@@ -38,9 +48,10 @@ class Show extends Component {
 
   //Create a button for each choice in poll
   renderChoiceList = poll => {
-    return poll.choices.map(obj => {
+    return poll.choices.map((obj, i) => {
       return (
         <button
+          key={i}
           onClick={e => this.handleVote(this.poll, obj)}
           className="choices"
         >
@@ -67,22 +78,15 @@ class Show extends Component {
   render() {
     this.poll = this.findPoll();
     if (this.poll) {
-      // this.graphChoices = this.poll.choices.map(choice => {
-      //   let votes = choice.votes;
-      //   let label = choice.text;
-      //   return `${`y: ${votes}, label: ${label}`}`;
-      // });
-      console.log("Poll: ", this.poll);
 
-      // this.graphChoices = this.poll.choices.map(choice => {
-      //   let votes = choice.votes;
-      //   let label = choice.text;
-      //   return `${`y: ${votes}, label: ${label}`}`;
-      // });
+      let dataPoints = [];
+      let choiceList = this.poll.choices;
+
 
       //Creates the list of datapoints which the graph will render.
       let dataPoints = [];
       let choiceList = this.poll.choices;
+
       for (var i = 0; i < this.poll.choices.length; i++) {
         let choiceObj = {
           y: `${choiceList[i].votes}`,
@@ -98,9 +102,7 @@ class Show extends Component {
       const options = {
         exportEnabled: false,
         animationEnabled: true,
-        //   title: {
-        //     text: ""
-        //   },
+
         data: [
           {
             type: "pie",
@@ -122,7 +124,6 @@ class Show extends Component {
             <h2 className="Title">{this.poll.question}</h2>
             <p>{this.poll.description}</p>
             <div>
-              <h1></h1>
               <CanvasJSChart
                 options={options}
                 /* onRef={ref => this.chart = ref} */
