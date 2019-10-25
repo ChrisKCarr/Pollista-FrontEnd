@@ -17,7 +17,6 @@ class Home extends Component {
     }
   };
   renderPollList = () => {
-    // console.log(this.context.polls)
     return this.context.polls.map(poll => {
       return <Poll pollObject={poll} />;
     });

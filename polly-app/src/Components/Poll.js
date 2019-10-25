@@ -14,7 +14,7 @@ class Poll extends Component {
           className="PollTitle"
           to={{
             pathname: `/show/${this.props.pollObject._id}`,
-            query: { pollObject: { poll } },
+            state: { poll },
           }}
         >
           {this.props.pollObject.question}

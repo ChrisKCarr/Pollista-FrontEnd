@@ -38,7 +38,7 @@ export class PollStore extends React.Component {
   updatePoll = async poll => {
     let token = window.sessionStorage.jwt;
     try {
-      let res = await pollyApi.put(`/update/${poll._id}`, poll, {
+      await pollyApi.put(`/update/${poll._id}`, poll, {
         headers: {
           token: token,
         },
@@ -51,7 +51,7 @@ export class PollStore extends React.Component {
   voteOnPoll = async poll => {
     let token = window.sessionStorage.jwt;
     try {
-      let res = await pollyApi.put(`/update/${poll._id}`, poll, {
+      await pollyApi.put(`/update/${poll._id}`, poll, {
         headers: {
           token: token,
           key: "9g6hiE3ex2T",
@@ -65,7 +65,7 @@ export class PollStore extends React.Component {
   deletePoll = async poll => {
     let token = window.sessionStorage.jwt;
     try {
-      let res = await pollyApi.delete(`/delete/${poll._id}`, {
+      await pollyApi.delete(`/delete/${poll._id}`, {
         headers: {
           token: token,
         },

@@ -4,31 +4,33 @@ import "./Show.css";
 import Nav from "./Nav";
 import PollContext from "../contexts/PollContext";
 import CanvasJSReact from "./Canvas/canvasjs.react";
-import { runInThisContext } from "vm";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Show extends Component {
   //setting the context type to the object of poll context
   static contextType = PollContext;
-  findPoll = () => {
-    if (this.context.polls) {
-      let results = this.context.polls.find(obj => {
-        return obj._id === this.props.match.params.id;
-      });
-      return results;
-    }
-  };
   ifAuthor = () => {
     if (this.context.user) {
       if (this.poll.user._id === this.context.user._id) {
         return (
-          <button
-            type="button"
-            className="Delete"
-            onClick={e => this.handleDelete(this.poll)}
-          >
-            Delete Poll
-          </button>
+          <div>
+            <Link
+              className="Edit"
+              to={{
+                pathname: `/update/${this.poll._id}`,
+                state: { poll: this.poll },
+              }}
+            >
+              Edit Poll
+            </Link>
+            <button
+              type="button"
+              className="Delete"
+              onClick={e => this.handleDelete(this.poll)}
+            >
+              Delete Poll
+            </button>
+          </div>
         );
       } else {
         return <div></div>;
@@ -59,7 +61,7 @@ class Show extends Component {
   };
 
   render() {
-    this.poll = this.findPoll();
+    this.poll = this.props.location.state.poll;
     if (this.poll) {
       this.graphChoices = this.poll.choices.map(choice => {
         let votes = choice.votes;

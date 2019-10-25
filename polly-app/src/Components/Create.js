@@ -14,10 +14,30 @@ class Create extends Component {
     this.state = {
       question: "",
       description: "",
-      choices: [{ 0: "" }, { 1: "" }]
+      choices: [{ 0: "" }, { 1: "" }],
     };
     this.inputsNeeded = 2;
+    this.header = "Create a new poll";
   }
+  componentDidMount = () => {
+    this.ifEdit();
+  };
+  ifEdit = () => {
+    if (this.props.poll) {
+      let poll = this.props.poll;
+      this.header = "Edit poll";
+      this.inputsNeeded = poll.choices.length;
+      let newState = {
+        question: poll.question,
+        description: poll.description,
+        choices: [],
+      };
+      newState.choices = poll.choices.map((poll, i) => {
+        return { [i]: poll.text };
+      });
+      this.setState({ ...newState });
+    }
+  };
   addChoices = () => {
     let choiceArr = this.state.choices;
     let i = choiceArr.length;
@@ -39,7 +59,7 @@ class Create extends Component {
             value={choiceArr[i][i]}
             onChange={e => this.handleChange(e)}
           />
-        </li>
+        </li>,
       );
     }
     return inputs;
@@ -66,23 +86,33 @@ class Create extends Component {
       this.setState({ choices: [...choiceArr] });
     }
   };
-  handleSubmit = event => {
-    event.preventDefault();
-    let choiceArr = this.state.choices;
-
-    let poll = { question: this.state.question };
-    if (this.state.description !== "")
+  handleSubmit = async event => {
+    if (this.props.poll) {
+      event.preventDefault();
+      let sPoll = { ...this.state };
+      let fPoll = this.props.poll;
+      fPoll.description = sPoll.description;
+      fPoll.question = sPoll.question;
+      let choiceArr = sPoll.choices.map((choice, i) => choice[i]);
+      fPoll.choices = choiceArr;
+      await this.context.updatePoll(fPoll);
+      this.props.history.push(`/show/${fPoll._id}`);
+    } else {
+      event.preventDefault();
+      let choiceArr = this.state.choices;
+      let poll = { question: this.state.question };
       poll.description = this.state.description;
-    let choices = choiceArr.map((choice, i) => choice[i]);
-    poll.choices = choices;
-    this.context.newPoll(poll);
-    this.props.history.push("/");
+      let choices = choiceArr.map((choice, i) => choice[i]);
+      poll.choices = choices;
+      this.context.newPoll(poll);
+      this.props.history.push("/");
+    }
   };
   render() {
     return (
       <div>
         <Route component={Nav} />
-        <h1 className="Title">Create a new poll</h1>
+        <h1 className="Title">{this.header}</h1>
         <form className="jumbotron" onSubmit={e => this.handleSubmit(e)}>
           <label>
             <h3>Question: </h3>
